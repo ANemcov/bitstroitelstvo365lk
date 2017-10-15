@@ -34,6 +34,9 @@ const DataScreen = (props) =>
                         </div>
                         <div className="content">
                             {props.apps.map(app => <SingleApp app={app} key={app.Id} />)}
+                            <div>
+                                <button className="btn btn-default" onClick={props.refresh}>Обновить</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -68,9 +71,28 @@ class Homepage extends Component {
             applications: [],
             isFetching: true
         };
+
+        this.getApplications = this.getApplications.bind(this);
       }
     
     componentDidMount() {
+
+
+        this.getApplications();
+    
+    }
+
+    render() {
+        return(
+            this.state.isFetching ? <LoadingScreen /> : <DataScreen apps={this.state.applications} refresh={this.getApplications} />
+        );
+    }
+
+    getApplications() {
+
+        this.setState({
+            isFetching: true
+        });
 
         axios.get('https://devfresh.bit-live.ru/coreprivateapi/myapplications',
             {
@@ -87,16 +109,10 @@ class Homepage extends Component {
                     isFetching: false
                 });
             }
-    
+
         });
-    
     }
 
-    render() {
-        return(
-            this.state.isFetching ? <LoadingScreen /> : <DataScreen apps={this.state.applications} />
-        );
-    }
 }
 
 const mapStateToProps = (state) => {
