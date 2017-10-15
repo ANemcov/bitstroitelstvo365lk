@@ -121,10 +121,14 @@ class Restore extends Component {
 
 }
 
-Restore.contextTypes = {
-    store: React.PropTypes.object.isRequired
-};
+const mapStateToProps = (state) => {
+    return {
+        isLoginPending: state.loginProcess.isLoginPending,
+        isLoginSuccess: state.loginProcess.isLoginSuccess,
+        loginError: state.loginProcess.loginError
+    };
+}
 
 
 
-export default connect()(Restore);
+export default connect(mapStateToProps)(Restore);
