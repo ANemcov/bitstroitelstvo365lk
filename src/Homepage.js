@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 var axios = require('axios');
 
 const LoadingScreen = () => 
@@ -35,8 +36,27 @@ const DataScreen = (props) =>
                         <div className="content">
                             {props.apps.map(app => <SingleApp app={app} key={app.Id} />)}
                             <div>
-                                <button className="btn btn-default" onClick={props.refresh}>Обновить</button>
+                                <button className="btn btn-default" onClick={props.refresh}>
+                                    <i className="fa fa-refresh" aria-hidden="true"></i>
+                                    Обновить
+                                </button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="card">
+                        <div className="content">
+                            <i className="fa fa-info-circle" aria-hidden="true"></i>
+                            Можно использовать тонкий клиент вместо браузера. <a href="https://bitstroitelstvo.atlassian.net/wiki/spaces/365KB/pages/66191361/1">Перейти в базу знаний</a>
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="card">
+                        <div className="content">
+                            <i className="fa fa-info-circle" aria-hidden="true"></i>
+                            Подключение, отключение и изменение параметров приложений производится в разделе <Link to="/tariffs">Тарифы</Link>.
                         </div>
                     </div>
                 </div>
