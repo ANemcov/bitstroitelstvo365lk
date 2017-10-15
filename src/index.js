@@ -16,6 +16,7 @@ import Login from './login/Login.js';
 import Restore from './login/Restore.js';
 import Sidebar from './Sidebar.js';
 import Homepage from './Homepage.js';
+import Profile from './Profile.js';
 import Tariffs from './Tariffs.js';
 import EditMyTariff from './tariffs/MyTariffsEdit.js';
 import Users from './Users.js';
@@ -80,6 +81,7 @@ ReactDOM.render((
           <div className="wrapper" >
               <Sidebar />
               <Route exact path="/" component={Homepage}/>
+              <Route exact path="/profile" component={Profile}/>
               <Route exact path="/tariffs" component={Tariffs}/>
               <Route exact path="/tariffs/edit" component={EditMyTariff}/>
               <Route exact path="/users" component={Users}/>
