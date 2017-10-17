@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
+import SingleTariffForm from './SingleTariffForm.js';
 var axios = require('axios');
 
 const EditForm = (props) => 
@@ -8,25 +9,22 @@ const EditForm = (props) =>
     <div className="content">
         <div className="card">
             <div className="header">
-                <h1>
-                    <Link to="/tariffs">
-                        <button className="btn btn-warning btn-fill"><i className="fa fa-arrow-circle-left"></i> Назад</button>
-                    </Link>
-                    Изменение тарифа
-                </h1>
+                <h1>Изменение тарифа</h1>
             </div>
             <div className="content">
+                <SingleTariffForm mytariff={props.tariff} />
+
                 <div className="row">
-                    <div className="col-md-4">
-                        {props.tariff.App.Name}
-                    </div>
-                    <div className="col-md-4">
-                        {props.tariff.Tariff.Name}
-                    </div>
-                    <div className="col-md-4">
-                        {props.tariff.Nusers}
+                    <div className="col-md-6">
+                        <Link to="/tariffs">
+                            <button className="btn btn-warning btn-fill"><i className="fa fa-arrow-circle-left"></i> Назад</button>
+                        </Link>
+                        <button className="btn btn-success btn-fill pull-right"><i className="fa fa-floppy-o"></i> Сохранить</button>
+                        <button className="btn btn-danger btn-fill pull-right"><i className="fa fa-ban"></i> Отключить</button>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>
