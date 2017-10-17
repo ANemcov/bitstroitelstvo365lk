@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import SingleTariffForm from './SingleTariffForm.js';
+import Price from './Price.js';
 var axios = require('axios');
 
 const EditForm = (props) => 
@@ -13,6 +14,14 @@ const EditForm = (props) =>
             </div>
             <div className="content">
                 <SingleTariffForm mytariff={props.tariff} />
+
+                <div className="row">
+                    <div className="col-md-6">
+                        <div className="text-center">
+                            Цена: <Price id={props.tariff.Tariff.Id} modules={props.tariff.Modules} options={props.tariff.Options} nusers={props.tariff.Nusers} /> руб.
+                        </div>
+                    </div>
+                </div>
 
                 <div className="row">
                     <div className="col-md-6">

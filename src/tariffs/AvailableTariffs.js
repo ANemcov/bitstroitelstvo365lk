@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Price from './Price.js';
 var axios = require('axios');
 
 const LoadingScreen = () => 
@@ -24,13 +25,16 @@ const DataScreen = (props) =>
 
 const SingleTariff = (props) => 
     <div className="row">
-        <div className="col-md-5">
+        <div className="col-md-4">
             {props.tariff.TariffName}
         </div>
         <div className="col-md-2">
             {"до " + props.tariff.MaxAmountOfLicenses + " пользователей"}
         </div>
-        <div className="col-md-5">
+        <div className="col-md-2">
+            от <Price id={props.tariff.TariffId} modules={props.tariff.Modules} options={props.tariff.Options} nusers={props.tariff.MinAmountOfLicenses} /> руб.
+        </div>
+        <div className="col-md-4">
             <button className="btn btn-info">Подключить</button>            
         </div>
     </div>
