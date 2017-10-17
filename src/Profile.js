@@ -6,63 +6,65 @@ const Container = (props) =>
 <div className="main-panel">
     <div className="content">
         <div className="container-fluid">
-            {props.children}
+            <div className="row">
+                {props.children}
+            </div>
         </div>
     </div>
 </div>
+
 
 const LoadingScreen = () => 
-<div className="row">
-    <div className="card">
-        <div className="header">
-            <h1>Реквизиты компании</h1>
-        </div>
-        <div className="content">
-            <h2><i className="pe-7s-refresh-2"></i> Загрузка...</h2>
-        </div>
+<div className="card">
+    <div className="header">
+        <h1>Реквизиты компании</h1>
+    </div>
+    <div className="content">
+        <h2><i className="pe-7s-refresh-2"></i> Загрузка...</h2>
     </div>
 </div>
 
-const DataScreen = (props) => 
-<div className="row">
-    <div className="card">
-        <div className="header">
-            <h1>Реквизиты компании</h1>
-            <p>Эта компания будет оплачивать сервис, и на эти реквизиты будут выставляться акты выполненных услуг.</p>
-        </div>
-        <div className="content">
-            <form onSubmit={props.onSubmit}>
-                <div className="row"><div className="col-md-6">
-                    <div className="form-group">
-                        <label>Название юридического лица</label>
-                        <input type="text" className="form-control" placeholder={"ООО \"Строительная Компания Орион\""} onChange={props.onLegalNameChange} defaultValue={props.company.LegalName} />
-                    </div>
-                </div></div>
-                <div className="row"><div className="col-md-6">
-                    <div className="form-group">
-                        <label>ИНН</label>
-                        <input type="text" className="form-control" placeholder="ИНН" onChange={props.onInnChange} defaultValue={props.company.INN} />
-                    </div>
-                </div></div>
-                <div className="row"><div className="col-md-6">
-                    <div className="form-group">
-                        <label>КПП</label>
-                        <input type="text" className="form-control" placeholder="КПП (если есть)" onChange={props.onKppChange} defaultValue={props.company.KPP} />
-                    </div>
-                </div></div>
 
-                <div className="row"><div className="col-md-6">
-                    <div className="form-group">
-                        <label>Почтовый адрес (для отправки документов)</label>
-                        <input type="text" className="form-control" placeholder="107126, Москва, ...." onChange={props.onMailingAddressChange} defaultValue={props.company.MailingAddress} />
-                    </div>
-                </div></div>
-                <div className="row"><div className="col-md-6">
-                    <button type="submit" className="btn btn-success btn-fill"><i className="fa fa-floppy-o"></i> Сохранить</button>
-                    <Posted show={props.posted} />
-                </div></div>
-            </form>
-        </div>
+
+
+const DataScreen = (props) => 
+<div className="card">
+    <div className="header">
+        <h1>Реквизиты компании</h1>
+        <p>Эта компания будет оплачивать сервис, и на эти реквизиты будут выставляться акты выполненных услуг.</p>
+    </div>
+    <div className="content">
+        <form onSubmit={props.onSubmit}>
+            <div className="row"><div className="col-md-6">
+                <div className="form-group">
+                    <label>Название юридического лица</label>
+                    <input type="text" className="form-control" placeholder={"ООО \"Строительная Компания Орион\""} onChange={props.onLegalNameChange} defaultValue={props.company.LegalName} />
+                </div>
+            </div></div>
+            <div className="row"><div className="col-md-6">
+                <div className="form-group">
+                    <label>ИНН</label>
+                    <input type="text" className="form-control" placeholder="ИНН" onChange={props.onInnChange} defaultValue={props.company.INN} />
+                </div>
+            </div></div>
+            <div className="row"><div className="col-md-6">
+                <div className="form-group">
+                    <label>КПП</label>
+                    <input type="text" className="form-control" placeholder="КПП (если есть)" onChange={props.onKppChange} defaultValue={props.company.KPP} />
+                </div>
+            </div></div>
+
+            <div className="row"><div className="col-md-6">
+                <div className="form-group">
+                    <label>Почтовый адрес (для отправки документов)</label>
+                    <input type="text" className="form-control" placeholder="107126, Москва, ...." onChange={props.onMailingAddressChange} defaultValue={props.company.MailingAddress} />
+                </div>
+            </div></div>
+            <div className="row"><div className="col-md-6">
+                <button type="submit" className="btn btn-success btn-fill"><i className="fa fa-floppy-o"></i> Сохранить</button>
+                <Posted show={props.posted} />
+            </div></div>
+        </form>
     </div>
 </div>
 
