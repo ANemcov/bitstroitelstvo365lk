@@ -2,75 +2,73 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 var axios = require('axios');
 
-const LoadingScreen = () => 
-    <div className="main-panel">
-        <div className="content">
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="card">
-                        <div className="header">
-                            <h1>Реквизиты компании</h1>
-                        </div>
-                        <div className="content">
-                            <h2><i className="pe-7s-refresh-2"></i> Загрузка...</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
+const Container = (props) =>
+<div className="main-panel">
+    <div className="content">
+        <div className="container-fluid">
+            {props.children}
         </div>
     </div>
+</div>
+
+const LoadingScreen = () => 
+<div className="row">
+    <div className="card">
+        <div className="header">
+            <h1>Реквизиты компании</h1>
+        </div>
+        <div className="content">
+            <h2><i className="pe-7s-refresh-2"></i> Загрузка...</h2>
+        </div>
+    </div>
+</div>
 
 const DataScreen = (props) => 
-    <div className="main-panel">
+<div className="row">
+    <div className="card">
+        <div className="header">
+            <h1>Реквизиты компании</h1>
+            <p>Эта компания будет оплачивать сервис, и на эти реквизиты будут выставляться акты выполненных услуг.</p>
+        </div>
         <div className="content">
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="card">
-                        <div className="header">
-                            <h1>Реквизиты компании</h1>
-                        </div>
-                        <div className="content">
-                            <form onSubmit={props.onSubmit}>
-                                <div className="row">
-                                    <div className="form-group">
-                                        <label>Название юридического лица</label>
-                                        <input type="text" className="form-control" placeholder="LegalName" onChange={props.onLegalNameChange} defaultValue={props.company.LegalName} />
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="form-group">
-                                        <label>ИНН</label>
-                                        <input type="text" className="form-control" placeholder="INN" onChange={props.onInnChange} defaultValue={props.company.INN} />
-                                    </div>
-
-                                </div>
-                                <div className="row">
-                                    <div className="form-group">
-                                        <label>КПП</label>
-                                        <input type="text" className="form-control" placeholder="KPP" onChange={props.onKppChange} defaultValue={props.company.KPP} />
-                                    </div>
-                                </div>
-
-                                <div className="row">
-                                    <div className="form-group">
-                                        <label>Почтовый адрес (для отправки документов)</label>
-                                        <input type="text" className="form-control" placeholder="MailingAddress" onChange={props.onMailingAddressChange} defaultValue={props.company.MailingAddress} />
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <button type="submit" className="btn btn-success btn-fill">Сохранить</button>
-                                    <Posted show={props.posted} />
-                                </div>
-                            </form>
-                        </div>
+            <form onSubmit={props.onSubmit}>
+                <div className="row"><div className="col-md-6">
+                    <div className="form-group">
+                        <label>Название юридического лица</label>
+                        <input type="text" className="form-control" placeholder={"ООО \"Строительная Компания Орион\""} onChange={props.onLegalNameChange} defaultValue={props.company.LegalName} />
                     </div>
-                </div>
-            </div>
+                </div></div>
+                <div className="row"><div className="col-md-6">
+                    <div className="form-group">
+                        <label>ИНН</label>
+                        <input type="text" className="form-control" placeholder="ИНН" onChange={props.onInnChange} defaultValue={props.company.INN} />
+                    </div>
+                </div></div>
+                <div className="row"><div className="col-md-6">
+                    <div className="form-group">
+                        <label>КПП</label>
+                        <input type="text" className="form-control" placeholder="КПП (если есть)" onChange={props.onKppChange} defaultValue={props.company.KPP} />
+                    </div>
+                </div></div>
+
+                <div className="row"><div className="col-md-6">
+                    <div className="form-group">
+                        <label>Почтовый адрес (для отправки документов)</label>
+                        <input type="text" className="form-control" placeholder="107126, Москва, ...." onChange={props.onMailingAddressChange} defaultValue={props.company.MailingAddress} />
+                    </div>
+                </div></div>
+                <div className="row"><div className="col-md-6">
+                    <button type="submit" className="btn btn-success btn-fill"><i className="fa fa-floppy-o"></i> Сохранить</button>
+                    <Posted show={props.posted} />
+                </div></div>
+            </form>
         </div>
     </div>
+</div>
+
 
 const Posted = (props) => {
-    return props.show ? <span>Сохранено</span> : null
+    return props.show ? <strong className="text-success"> Данные сохранены <i className="fa fa-check" aria-hidden="true"></i></strong> : null
 }
 
 
@@ -121,31 +119,35 @@ class Profile extends Component {
 
     render() {
         return(
-            this.state.isFetching ? <LoadingScreen /> : <DataScreen company={{INN: this.state.INN, KPP: this.state.KPP, LegalName: this.state.LegalName, MailingAddress: this.state.MailingAddress}} 
+            <Container>
+            {this.state.isFetching ? <LoadingScreen /> : <DataScreen company={{INN: this.state.INN, KPP: this.state.KPP, LegalName: this.state.LegalName, MailingAddress: this.state.MailingAddress}} 
                                                                     onSubmit={this.onSubmit}
                                                                     onInnChange={this.onInnChange}
                                                                     onKppChange={this.onKppChange}
                                                                     onLegalNameChange={this.onLegalNameChange}
                                                                     onMailingAddressChange={this.onMailingAddressChange}
                                                                     posted={this.state.posted}                              
-                                                                    />
+                                                                    />}
+            </Container>
         );
     }
 
     onSubmit(e) {
         e.preventDefault();
 
-        axios.post('https://devfresh.bit-live.ru/coreprivateapi/finance/company/update',
+        axios.get('https://devfresh.bit-live.ru/privateapi/hs/coreprivateapi/finance/company/update',
         {
             auth: {
                 username: this.props.credentials.login,
                 password: this.props.credentials.password
             },
-            data: {
-                INN: this.state.INN,
-                KPP: this.state.KPP,
-                LegalName: this.state.LegalName,
-                MailingAddress: this.state.MailingAddress
+            params: {
+                data: {
+                    INN: this.state.INN,
+                    KPP: this.state.KPP,
+                    LegalName: this.state.LegalName,
+                    MailingAddress: this.state.MailingAddress
+                }
             }
         }
         ).then((response) => {
