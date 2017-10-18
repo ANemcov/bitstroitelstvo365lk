@@ -16,9 +16,10 @@ import Restore from './login/Restore.js';
 import Sidebar from './Sidebar.js';
 import Homepage from './Homepage.js';
 import Profile from './Profile.js';
-import Tariffs from './Tariffs.js';
+import Tariffs from './tariffs/Tariffs.js';
 import EditMyTariff from './tariffs/MyTariffsEdit.js';
 import Users from './Users.js';
+import Finance from './finance/Finance.js';
 
 
 const initialState = {
@@ -84,6 +85,7 @@ ReactDOM.render((
               <Route exact path="/tariffs" component={Tariffs}/>
               <Route exact path="/tariffs/edit" component={EditMyTariff}/>
               <Route exact path="/users" component={Users}/>
+              <Route exact path="/finance" component={Finance}/>
           </div>
         </EnsureLoggedInContainer>
       </Switch>

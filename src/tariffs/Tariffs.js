@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import MyTariffs from './tariffs/MyTariffs.js';
-import AvailableTariffs from './tariffs/AvailableTariffs.js';
+import MyTariffs from './MyTariffs.js';
+import AvailableTariffs from './AvailableTariffs.js';
 
 class Tariffs extends Component {
     render() {

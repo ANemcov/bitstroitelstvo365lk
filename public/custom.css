@@ -5,8 +5,11 @@
     margin-left: 10px;
 }
 
-.vertical-align {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
-}
+.flex-row {
+    display: flex;
+  }
+  
+.flex-bottom {
+    margin-top: auto;
+  }
+  
