@@ -4,9 +4,11 @@ var axios = require('axios');
 
 
 const Posted = (props) => {
-    return props.show ? <strong className="text-success"> Счет отправлен <i className="fa fa-check" aria-hidden="true"></i></strong> : null
+    return props.show ? <strong className="text-success"><i className="fa fa-check" aria-hidden="true"></i> Счет отправлен</strong> : null
 }
-
+const FormError = (props) => {
+    return props.show ? <strong className="text-danger"><i className="fa fa-exclamation" aria-hidden="true"></i> Заполните оба поля выше</strong> : null
+}
 
 class GetInvoice extends Component {
     constructor(props) {
@@ -15,7 +17,8 @@ class GetInvoice extends Component {
         this.state = {
             email: "",
             amount: 0,
-            posted: false
+            posted: false,
+            formError: false
         };
 
         this.onEmailChange = this.onEmailChange.bind(this);
@@ -31,7 +34,6 @@ class GetInvoice extends Component {
                 </div>
             </div>
             <form onSubmit={this.onSubmit}>
-
                 <div className="row flex-row">
                     <div className="col-md-4">
                         <div className="form-group">
@@ -52,18 +54,32 @@ class GetInvoice extends Component {
                     <div className="col-md-2 flex-bottom">
                         <div className="form-group">
                             <button type="submit" className="btn btn-success btn-fill"><i className="fa fa-envelope-o"></i> Получить</button>
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-8">
+                        <div className="pull-right">
+                            <FormError show={this.state.formError} />
                             <Posted show={this.state.posted} />
                         </div>
                     </div>
                 </div>
             </form>
+
+            
         </div>);
     }
 
     onSubmit(e) {
         e.preventDefault();
 
-        axios.get('https://devfresh.bit-live.ru/privateapi/hs/coreprivateapi/finance/company/update',
+        if (this.state.amount === 0 || this.state.email.trim === "") {
+            this.setState({formError: true});
+            return;
+        }
+
+        axios.get('https://devfresh.bit-live.ru/privateapi/hs/coreprivateapi/finance/sendinvoice',
         {
             auth: {
                 username: this.props.credentials.login,
@@ -71,10 +87,8 @@ class GetInvoice extends Component {
             },
             params: {
                 data: {
-                    INN: this.state.INN,
-                    KPP: this.state.KPP,
-                    LegalName: this.state.LegalName,
-                    MailingAddress: this.state.MailingAddress
+                    mail: this.state.email,
+                    amount: this.state.amount
                 }
             }
         }
@@ -82,7 +96,7 @@ class GetInvoice extends Component {
             
             if (response.status === 200) {
 
-                this.setState({posted: true});
+                this.setState({posted: true, formError: false});
 
             }
 
