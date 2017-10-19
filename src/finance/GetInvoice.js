@@ -24,7 +24,7 @@ class GetInvoice extends Component {
         this.onEmailChange = this.onEmailChange.bind(this);
         this.onAmountChange = this.onAmountChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-      }
+    }
     
     render() {
         return(<div>
