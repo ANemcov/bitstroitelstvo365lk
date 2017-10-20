@@ -30,7 +30,7 @@ class GetInvoice extends Component {
         return(<div>
             <div className="row">
                 <div className="col-md-8">
-                    <h4>Самостоятельное выставление счета на оплату</h4>
+                    <h4>Самостоятельное получение счета на оплату</h4>
                 </div>
             </div>
             <form onSubmit={this.onSubmit}>

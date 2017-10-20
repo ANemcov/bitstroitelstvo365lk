@@ -15,13 +15,12 @@ const Container = (props) =>
 </div>
 
 const LoadingScreen = (props) =>
-<div>
+<div className="text-center">
     <i className="fa fa-refresh fa-spin fa-3x fa-fw"></i>
 </div>
 
 const DataScreen = (props) =>
 <div>
-    <p>{JSON.stringify(props.transactions)}</p>
     <table className="table table-condensed">
         <thead>
             <tr>
@@ -30,6 +29,23 @@ const DataScreen = (props) =>
                 <th>Расход</th>
             </tr>
         </thead>
+        <tbody>
+            <tr className="active">
+                <td>На начало периода</td>
+                <td colSpan={2} className="text-center">{props.data.startingbalance.amount}</td>
+            </tr>
+            {props.data.transactions.map(elem => 
+                <tr>
+                    <td>{elem.description}</td>
+                    <td>{elem.accrual > 0 ? elem.accrual : ""}</td>
+                    <td>{elem.writeoff > 0 ? elem.writeoff : ""}</td>
+                </tr>
+            )}
+            <tr className="active">
+                <td>На конец периода</td>
+                <td colSpan={2} className="text-center">{props.data.endingbalance.amount}</td>
+            </tr>
+        </tbody>
     </table>
 </div>
 
@@ -41,7 +57,7 @@ class Transactions extends Component {
         this.state = {
             dateFrom: new Date().toISOString(),
             dateTo: new Date().toISOString(),
-            isFetching: true,
+            isFetching: false,
             transactions: []
         };
 
@@ -50,7 +66,7 @@ class Transactions extends Component {
     }
     
     componentDidMount() {
-        this.getTransactions();
+        //this.getTransactions();
     }    
 
     render() {
@@ -71,7 +87,8 @@ class Transactions extends Component {
                 </div>
                 <div className="row">
                     <div className="col-md-8">
-                        {this.state.isFetching ? <LoadingScreen /> : <DataScreen transactions={this.state.transactions} />}
+                        {this.state.isFetching && <LoadingScreen />} 
+                        {this.state.transactions.length == 0 ? null : <DataScreen data={this.state.transactions} />}
                     </div>
                 </div>
             </Container>
@@ -89,7 +106,6 @@ class Transactions extends Component {
             isFetching: true
         });
 
-        //https://devfresh.bit-live.ru/coreprivateapi/finance/transactions?from=2017-09-30T16:30:00.000&to=2017-10-18T16:30:00.000
         axios.get('https://devfresh.bit-live.ru/coreprivateapi/finance/transactions',
             {
                 auth: {
