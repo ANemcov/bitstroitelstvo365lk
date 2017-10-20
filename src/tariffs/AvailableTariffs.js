@@ -8,7 +8,7 @@ const LoadingScreen = () =>
             <h1>Доступные тарифы</h1>
         </div>
         <div className="content">
-            <h2><i className="pe-7s-refresh-2"></i> Загрузка...</h2>
+            <div className="text-center"><i className="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>
         </div>
     </div>
 

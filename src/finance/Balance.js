@@ -17,7 +17,7 @@ const Container = (props) =>
 
 
 const LoadingScreen = () => 
-<h2><i className="pe-7s-refresh-2"></i> Загрузка...</h2>
+<div className="text-center"><i className="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>
 
 const DataScreen = (props) => 
 <p>
