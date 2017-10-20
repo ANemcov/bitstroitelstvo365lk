@@ -57,9 +57,16 @@ class Transactions extends Component {
         return (
             <Container>
                 <div className="row">
-                    <div className="col-md-8">
-                        {"с "}<input type="date" className="form-control" onChange={this.handleFromDayChange} />
-                        {"по "}<input type="date" className="form-control" onChange={this.handleToDayChange} />
+                    <div className="col-md-8 form-inline">
+                        <div className="form-group">
+                            <label>{"За период"}</label>
+                            <input type="date" className="form-control" onChange={this.handleFromDayChange} />
+                        </div>
+                        <div className="form-group">
+                            <label>{"по"}</label>
+                            <input type="date" className="form-control" onChange={this.handleToDayChange} />
+                        </div>
+                        <button className="btn btn-success btn-fill" onClick={this.getTransactions}><i className="fa fa-cloud-download" aria-hidden="true"></i> Показать</button>
                     </div>
                 </div>
                 <div className="row">
@@ -72,11 +79,8 @@ class Transactions extends Component {
 
     }
 
-    //handleFromDayChange = (selectedDay, modifiers) => this.setState({dateFrom : selectedDay._i.toISOString()});
-    //handleToDayChange = (selectedDay, modifiers) => this.setState({dateTo : selectedDay._i.toISOString()});
-
-    handleFromDayChange = (e) => this.setState({dateFrom : e.target.value});
-    handleToDayChange = (e) => this.setState({dateTo : e.target.value});
+    handleFromDayChange = (e) => this.setState({dateFrom : e.target.value + "T00:00:00"});
+    handleToDayChange = (e) => this.setState({dateTo : e.target.value + "T23:59:59"});
     
 
     getTransactions() {
