@@ -47,22 +47,6 @@ const DataScreen = (props) =>
             </div>
         </div>
     </div>
-    <div className="row">
-        <div className="card">
-            <div className="content">
-                <i className="fa fa-info-circle" aria-hidden="true"></i>
-                Можно использовать тонкий клиент вместо браузера. <a href="https://bitstroitelstvo.atlassian.net/wiki/spaces/365KB/pages/66191361/1">Перейти в базу знаний</a>
-            </div>
-        </div>
-    </div>
-    <div className="row">
-        <div className="card">
-            <div className="content">
-                <i className="fa fa-info-circle" aria-hidden="true"></i>
-                Подключение, отключение и изменение параметров приложений производится в разделе <Link to="/tariffs">Тарифы</Link>.
-            </div>
-        </div>
-    </div>
 </div>
 
 
@@ -91,6 +75,26 @@ const SingleApp = (props) =>
 </div>
 
 
+const Information = () =>
+<div className="container-fluid">
+    <div className="row">
+        <div className="card">
+            <div className="content">
+                <i className="fa fa-info-circle" aria-hidden="true"></i>
+                Можно использовать тонкий клиент вместо браузера. <a href="https://bitstroitelstvo.atlassian.net/wiki/spaces/365KB/pages/66191361/1">Перейти в базу знаний</a>
+            </div>
+        </div>
+        </div>
+        <div className="row">
+        <div className="card">
+            <div className="content">
+                <i className="fa fa-info-circle" aria-hidden="true"></i>
+                Подключение, отключение и изменение параметров приложений производится в разделе <Link to="/tariffs">Тарифы</Link>.
+            </div>
+        </div>
+    </div>
+</div>
+
 
 class Homepage extends Component {
     constructor(props) {
@@ -115,6 +119,7 @@ class Homepage extends Component {
         return(
             <Container>
                 {this.state.isFetching ? <LoadingScreen /> : <DataScreen apps={this.state.applications} refresh={this.getApplications} />}
+                <Information />
             </Container>
         );
     }
