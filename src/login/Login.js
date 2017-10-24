@@ -6,45 +6,88 @@ import { Redirect, Link } from 'react-router-dom';
 var axios = require('axios');
 
 const LoginForm = (props) => 
-    <div className="container-fluid">
-        <div className="row">
-            <div className="col-md-4"></div>
-            <div className="col-md-4">
-                <div className="card">
-                    <div className="header">
-                        <h4 className="title">Личный кабинет БИТ.Строительство 365</h4>
-                    </div>
-                    <div className="content">
-                        <form onSubmit={props.onSubmit}>
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <div className="form-group">
-                                        <label>Логин</label>
-                                        <input type="text" className="form-control" placeholder="Username" onChange={props.onLoginChange} />
-                                    </div>
+<div className="container-fluid">
+    <div className="row">
+        <div className="col-md-4"></div>
+        <div className="col-md-4">
+
+            <Header />
+
+            <div className="card">
+                <div className="header">
+                    <h4 className="title text-center">Вход в личный кабинет</h4>
+                </div>
+                <div className="content">
+                    <form onSubmit={props.onSubmit}>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <div className="form-group">
+                                    <label>Логин</label>
+                                    <input type="text" className="form-control" placeholder="Username" onChange={props.onLoginChange} />
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <div className="form-group">
-                                        <label>Пароль</label>
-                                        <input type="password" className="form-control" placeholder="Password" onChange={props.onPasswordChange} />
-                                    </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <div className="form-group">
+                                    <label>Пароль</label>
+                                    <input type="password" className="form-control" placeholder="Password" onChange={props.onPasswordChange} />
                                 </div>
                             </div>
-                            <div className="row">
-                                <button type="submit" className="btn btn-info btn-fill">Вход</button>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <button type="submit" className="btn btn-success btn-fill">Войти в кабинет</button>
                                 <Link to="/restore">
-                                    <button className="btn btn-default pull-right">Забыли пароль?</button>
+                                    <button className="btn btn-warning pull-right">Забыли пароль?</button>
                                 </Link>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div className="col-md-4"></div>
+
+            <NewUserInfo />
+
+        </div>
+        <div className="col-md-4"></div>
+    </div>
+</div>
+
+const Header = () =>
+<div style={{marginTop: "50px", marginBottom: "20px"}}>
+    <div className="header">
+        <h4 className="title text-center">
+            <span style={{color: "rgb(211, 48, 142)"}}>БИТ.</span><span style={{color: "rgb(47, 51, 141)"}}>СТРОИТЕЛЬСТВО 365</span><br />
+            <small>разработано для крупных строительных компаний<br />
+            и адаптировано для малых предприятий</small>
+        </h4>
+    </div>
+</div>
+
+
+const NewUserInfo = () =>
+<div className="card">
+    <div className="header">
+        <h4 className="title text-center">Нет учетной записи?</h4>
+    </div>
+    <div className="content">
+        <div className="row">
+            <div className="col-md-12">
+                <p className="text-center">
+                    Узнать больше: <a href="http://bitstroitelstvo365.ru">bitstroitelstvo365.ru</a>, <a href="https://www.facebook.com/bitstroitelstvo365/"><i className="fa fa-facebook-square" aria-hidden="true"></i></a> <a href="https://www.youtube.com/channel/UCGiP8c_Po5bt4ENDYUw7S6Q"><i className="fa fa-youtube-square" aria-hidden="true"></i></a>
+                </p>
+                <p className="text-center">
+                    Можете зарегистрироваться самостоятельно
+                    <Link to="/newcustomer">
+                        <button className="btn btn-success">Регистрация</button>
+                    </Link>                    
+                </p>
+                <p className="text-center">Можем помочь по телефону <strong>+7 (812) 677-01-77</strong></p>
+            </div>
         </div>
     </div>
+</div>
 
 
 class Login extends Component {
