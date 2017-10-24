@@ -36,11 +36,6 @@ class Sidebar extends Component {
                         <p>Приложения</p>
                     </NavLink>
 
-                    <NavLink to="/profile">
-                        <i className="pe-7s-id"></i>
-                        <p>Реквизиты компании</p>
-                    </NavLink>
-                    
                     <NavLink to="/tariffs">
                         <i className="pe-7s-edit"></i>
                         <p>Настройки тарифов</p>
@@ -51,6 +46,11 @@ class Sidebar extends Component {
                         <p>Пользователи</p>
                     </NavLink>
 
+                    <NavLink to="/profile">
+                        <i className="pe-7s-id"></i>
+                        <p>Реквизиты компании</p>
+                    </NavLink>
+                    
                     <NavLink to="/finance">
                         <i className="pe-7s-cash"></i>
                         <p>Финансы</p>
