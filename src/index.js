@@ -13,6 +13,7 @@ import registerServiceWorker from './registerServiceWorker';
 import EnsureLoggedInContainer from './EnsureLoggedIn.js';
 import Login from './login/Login.js';
 import Restore from './login/Restore.js';
+import Newcustomer from './Newcustomer.js';
 import Sidebar from './Sidebar.js';
 import Homepage from './Homepage.js';
 import Profile from './Profile.js';
@@ -77,6 +78,7 @@ ReactDOM.render((
       <Switch>
         <Route exact path="/login" component={Login}/>
         <Route exact path="/restore" component={Restore}/>
+        <Route exact path="/newcustomer" component={Newcustomer}/>
         <EnsureLoggedInContainer>
           <div className="wrapper" >
               <Sidebar />
