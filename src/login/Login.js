@@ -1,67 +1,42 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-
+import Wrapper from '../common/SingleColumnWrapper.js'
 
 var axios = require('axios');
 
 const LoginForm = (props) => 
-<div className="container-fluid">
-    <div className="row">
-        <div className="col-md-4"></div>
-        <div className="col-md-4">
-
-            <Header />
-
-            <div className="card">
-                <div className="header">
-                    <h4 className="title text-center">Вход в личный кабинет</h4>
-                </div>
-                <div className="content">
-                    <form onSubmit={props.onSubmit}>
-                        <div className="row">
-                            <div className="col-md-12">
-                                <div className="form-group">
-                                    <label>Логин</label>
-                                    <input type="text" className="form-control" placeholder="Username" onChange={props.onLoginChange} />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-md-12">
-                                <div className="form-group">
-                                    <label>Пароль</label>
-                                    <input type="password" className="form-control" placeholder="Password" onChange={props.onPasswordChange} />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-md-12">
-                                <button type="submit" className="btn btn-success btn-fill">Войти в кабинет</button>
-                                <Link to="/restore">
-                                    <button className="btn btn-warning pull-right">Забыли пароль?</button>
-                                </Link>
-                            </div>
-                        </div>
-                    </form>
+<div className="card">
+    <div className="header">
+        <h4 className="title text-center">Вход в личный кабинет</h4>
+    </div>
+    <div className="content">
+        <form onSubmit={props.onSubmit}>
+            <div className="row">
+                <div className="col-md-12">
+                    <div className="form-group">
+                        <label>Логин</label>
+                        <input type="text" className="form-control" placeholder="Username" onChange={props.onLoginChange} />
+                    </div>
                 </div>
             </div>
-
-            <NewUserInfo />
-
-        </div>
-        <div className="col-md-4"></div>
-    </div>
-</div>
-
-const Header = () =>
-<div style={{marginTop: "50px", marginBottom: "20px"}}>
-    <div className="header">
-        <h4 className="title text-center">
-            <span style={{color: "rgb(211, 48, 142)"}}>БИТ.</span><span style={{color: "rgb(47, 51, 141)"}}>СТРОИТЕЛЬСТВО 365</span><br />
-            <small>разработано для крупных строительных компаний<br />
-            и адаптировано для малых предприятий</small>
-        </h4>
+            <div className="row">
+                <div className="col-md-12">
+                    <div className="form-group">
+                        <label>Пароль</label>
+                        <input type="password" className="form-control" placeholder="Password" onChange={props.onPasswordChange} />
+                    </div>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-md-12">
+                    <button type="submit" className="btn btn-success btn-fill">Войти в кабинет</button>
+                    <Link to="/restore">
+                        <button className="btn btn-warning pull-right">Забыли пароль?</button>
+                    </Link>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -119,10 +94,11 @@ class Login extends Component {
             )
         } else {
             return (
-                <div>
+                <Wrapper>
                     <LoginForm onSubmit={this.onSubmit} onLoginChange={this.onLoginChange} onPasswordChange={this.onPasswordChange} />
                     { loginError && <div>{loginError}</div> }
-                </div>);
+                    <NewUserInfo />
+                </Wrapper>);
         }
 
     }
