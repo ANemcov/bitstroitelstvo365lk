@@ -137,7 +137,7 @@ class Profile extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        axios.get('https://devfresh.bit-live.ru/privateapi/hs/coreprivateapi/finance/company/update',
+        axios.get(this.props.basePrivateURL + '/finance/company/update',
         {
             auth: {
                 username: this.props.credentials.login,
@@ -181,6 +181,7 @@ class Profile extends Component {
   
 function mapStateToProps(state) {
     return {
+        basePrivateURL: state.basePrivateURL,
         credentials: state.credentials
     }
 }

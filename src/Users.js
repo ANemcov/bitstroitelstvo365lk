@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 var axios = require('axios');
 
@@ -14,7 +15,7 @@ class Users extends Component {
     
     componentDidMount() {
         /*
-        axios.get('https://devfresh.bit-live.ru/coreprivateapi/myapplications',
+        axios.get(this.props.basePrivateURL + '/myapplications',
             {
                 auth: {
                     username: 'Test03',
@@ -40,4 +41,11 @@ class Users extends Component {
     }
 }
 
-export default Users;
+const mapStateToProps = (state) => {
+    return {
+        basePrivateURL: state.basePrivateURL,
+        credentials: state.credentials
+    };
+}
+
+export default connect(mapStateToProps)(Users);

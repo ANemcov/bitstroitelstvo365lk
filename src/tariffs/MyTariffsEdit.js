@@ -55,6 +55,7 @@ class EditMyTariff extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        basePrivateURL: state.basePrivateURL,
         credentials: state.credentials
     };
 }

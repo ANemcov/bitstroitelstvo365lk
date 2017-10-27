@@ -79,7 +79,7 @@ class GetInvoice extends Component {
             return;
         }
 
-        axios.get('https://devfresh.bit-live.ru/privateapi/hs/coreprivateapi/finance/sendinvoice',
+        axios.get(this.props.basePrivateURL + '/finance/sendinvoice',
         {
             auth: {
                 username: this.props.credentials.login,
@@ -115,6 +115,7 @@ class GetInvoice extends Component {
   
 function mapStateToProps(state) {
     return {
+        basePrivateURL: state.basePrivateURL,
         credentials: state.credentials
     }
 }

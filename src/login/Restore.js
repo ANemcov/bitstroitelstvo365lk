@@ -109,9 +109,8 @@ class Restore extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        isLoginPending: state.loginProcess.isLoginPending,
-        isLoginSuccess: state.loginProcess.isLoginSuccess,
-        loginError: state.loginProcess.loginError
+        basePublicURL: state.basePublicURL
+
     };
 }
 

@@ -94,6 +94,7 @@ class AccountActivation extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        basePublicURL: state.basePublicURL,
     };
 }
 

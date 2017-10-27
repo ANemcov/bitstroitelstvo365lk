@@ -131,7 +131,7 @@ class Login extends Component {
             type: "LOGIN_IN_PROGRESS"
         });
 
-        axios.get('https://devfresh.bit-live.ru/coreprivateapi/authenticate',
+        axios.get(this.props.basePrivateURL + '/authenticate',
         {          
             auth: {
                 username: this.state.credentials.login,
@@ -174,6 +174,7 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        basePrivateURL: state.basePrivateURL,
         isLoginPending: state.loginProcess.isLoginPending,
         isLoginSuccess: state.loginProcess.isLoginSuccess,
         loginError: state.loginProcess.loginError

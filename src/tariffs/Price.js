@@ -22,7 +22,7 @@ class Price extends Component {
     
     componentDidMount() {
         
-        axios.get(`https://devfresh.bit-live.ru/corepublicapi/tariffs/${this.props.id}/quote`,
+        axios.get(this.props.basePublicURL + `/tariffs/${this.props.id}/quote`,
         {
             params: {
                 data: {
@@ -54,6 +54,7 @@ class Price extends Component {
     
 const mapStateToProps = (state) => {
     return {
+        basePublicURL: state.basePublicURL,
         credentials: state.credentials
     };
 }

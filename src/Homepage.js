@@ -130,7 +130,7 @@ class Homepage extends Component {
             isFetching: true
         });
 
-        axios.get('https://devfresh.bit-live.ru/coreprivateapi/myapplications',
+        axios.get(this.props.basePrivateURL + '/myapplications',
             {
                 auth: {
                     username: this.props.credentials.login,
@@ -153,6 +153,7 @@ class Homepage extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        basePrivateURL: state.basePrivateURL,
         credentials: state.credentials
     };
 }

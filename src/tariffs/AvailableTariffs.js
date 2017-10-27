@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Price from './Price.js';
 var axios = require('axios');
 
@@ -52,7 +53,7 @@ class AvailableTariffs extends Component {
     
     componentDidMount() {
         
-        axios.get('https://devfresh.bit-live.ru/corepublicapi/tariffs'
+        axios.get(this.props.basePublicURL + '/tariffs'
         ).then((response) => {
             
             if (response.status === 200) {
@@ -73,4 +74,10 @@ class AvailableTariffs extends Component {
     }
 }
 
-export default AvailableTariffs;
+const mapStateToProps = (state) => {
+    return {
+        basePublicURL: state.basePublicURL,
+    };
+}
+
+export default connect(mapStateToProps)(AvailableTariffs);

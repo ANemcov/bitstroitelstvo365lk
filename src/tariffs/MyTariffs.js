@@ -55,7 +55,7 @@ class MyTariffs extends Component {
     
     componentDidMount() {
         
-        axios.get('https://devfresh.bit-live.ru/coreprivateapi/mytariffs',
+        axios.get(this.props.basePrivateURL + '/mytariffs',
             {
                 auth: {
                     username: this.props.credentials.login,
@@ -84,6 +84,7 @@ class MyTariffs extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        basePrivateURL: state.basePrivateURL,
         credentials: state.credentials
     };
 }

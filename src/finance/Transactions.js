@@ -106,7 +106,7 @@ class Transactions extends Component {
             isFetching: true
         });
 
-        axios.get('https://devfresh.bit-live.ru/coreprivateapi/finance/transactions',
+        axios.get(this.props.basePrivateURL + '/finance/transactions',
             {
                 auth: {
                     username: this.props.credentials.login,
@@ -134,6 +134,7 @@ class Transactions extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        basePrivateURL: state.basePrivateURL,
         credentials: state.credentials
     };
 }

@@ -41,7 +41,7 @@ class Balance extends Component {
 
         this.setState({isFetching: true});
 
-        axios.get('https://devfresh.bit-live.ru/coreprivateapi/finance/balance',
+        axios.get(this.props.basePrivateURL + '/finance/balance',
             {
                 auth: {
                     username: this.props.credentials.login,
@@ -80,6 +80,7 @@ class Balance extends Component {
   
 function mapStateToProps(state) {
     return {
+        basePrivateURL: state.basePrivateURL,
         credentials: state.credentials
     }
 }

@@ -141,6 +141,7 @@ class Newcustomer extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        basePublicURL: state.basePublicURL,
     };
 }
 
