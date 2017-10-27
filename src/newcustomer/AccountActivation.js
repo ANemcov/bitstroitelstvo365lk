@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Wrapper from '../common/SingleColumnWrapper.js'
 
 var axios = require('axios');
@@ -25,7 +26,7 @@ const ActivationForm = (props) =>
             <div className="row">
                 <div className="col-md-12">
                     <p className="text-center">
-                        <button type="submit" className="btn btn-success btn-fill">Завершить регистрацию</button><br />
+                        <button type="submit" className="btn btn-success btn-fill" disabled={props.inProgress}>Завершить регистрацию</button><br />
                     </p>
                 </div>
             </div>
@@ -33,6 +34,38 @@ const ActivationForm = (props) =>
     </div>
 </div>
 
+const ActivationInProgress = (props) => 
+<div className="card">
+    <div className="content">
+        <div className="text-center"><i className="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>
+    </div>
+</div>
+
+const ActivationSuccessful = (props) => 
+<div className="card">
+    <div className="content">
+        <p className="text-center text-success">
+            Активация прошла успешно
+        </p>
+        <p className="text-center">
+            <Link to="/login">
+                <button className="btn btn-success btn-fill">Войти в кабинет</button>
+            </Link>
+        </p>
+    </div>
+</div>
+
+const ActivationError = (props) => 
+<div className="card">
+    <div className="content">
+        <p className="text-center text-danger">
+            Произошла ошибка: {props.errorText}
+        </p>
+        <p>
+            Чтобы разобраться с ошибкой пришлите активационный код на почту <a href="mailto:support@bit-stroitelstvo.ru">support@bit-stroitelstvo.ru</a> с адреса, который был указан при регистрации.
+        </p>
+    </div>
+</div>
 
 class AccountActivation extends Component {
     constructor(props) {
@@ -42,7 +75,8 @@ class AccountActivation extends Component {
             code: "",
             inProgress: false,
             success: false,
-            error: false
+            error: false,
+            errorText: "Неверный код активации"
         }
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -50,7 +84,6 @@ class AccountActivation extends Component {
     }
 
     componentDidMount() {
-        
         const params = new URLSearchParams(this.props.location.search);
         const code = params.get('code');
 
@@ -67,27 +100,48 @@ class AccountActivation extends Component {
                 <ActivationForm onSubmit={this.onSubmit}
                                 onCodeChange={this.onCodeChange}
                                 code={this.state.code}
-                 />
+                                inProgress={this.state.inProgress}
+                />
+                {this.state.inProgress ? <ActivationInProgress /> : null}
+                {this.state.success ? <ActivationSuccessful /> : null}
+                {this.state.error ? <ActivationError errorText={this.state.errorText} /> : null}
             </Wrapper>);
     }
 
     onSubmit(e) {
         e.preventDefault();
-
         this.activate();
-
     }
 
     onCodeChange(e) {
         this.setState({code: e.target.value});
     }
 
-
     activate() {
 
         this.setState({inProgress: true});
-        
 
+        axios.get(this.props.basePublicURL + '/account/activation',
+        {          
+            params: {
+                code: this.state.code
+            }
+        }
+        ).then((response) => {
+            this.setState({
+                inProgress: false,
+                success: true,
+                error: false
+            });
+        })
+        .catch((error) => {
+            this.setState({
+                inProgress: false,
+                success: false,
+                error: true,
+                errorText: error.response === undefined ? "ошибка соединения" : error.response.data
+            });
+        });        
     }    
 
 }
