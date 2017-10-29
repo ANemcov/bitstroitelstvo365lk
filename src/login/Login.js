@@ -16,7 +16,7 @@ const LoginForm = (props) =>
                 <div className="col-md-12">
                     <div className="form-group">
                         <label>Логин</label>
-                        <input type="text" className="form-control" placeholder="Username" onChange={props.onLoginChange} />
+                        <input type="text" className="form-control" required onChange={props.onLoginChange} />
                     </div>
                 </div>
             </div>
@@ -24,13 +24,13 @@ const LoginForm = (props) =>
                 <div className="col-md-12">
                     <div className="form-group">
                         <label>Пароль</label>
-                        <input type="password" className="form-control" placeholder="Password" onChange={props.onPasswordChange} />
+                        <input type="password" className="form-control" required onChange={props.onPasswordChange} />
                     </div>
                 </div>
             </div>
             <div className="row">
                 <div className="col-md-12">
-                    <button type="submit" className="btn btn-success btn-fill">Войти в кабинет</button>
+                    <button type="submit" className="btn btn-success btn-fill" disabled={props.inProgress}>Войти в кабинет</button>
                     <Link to="/restore">
                         <button className="btn btn-warning pull-right">Забыли пароль?</button>
                     </Link>
@@ -40,6 +40,17 @@ const LoginForm = (props) =>
     </div>
 </div>
 
+const LoginError = (props) => 
+<div className="card">
+    <div className="content">
+        <p className="text-center text-danger">
+            Произошла ошибка: {props.errorText}
+        </p>
+        <p>
+            Проверьте свой логин и пароль. Если считаете, что все верно - напишите нам о проблеме на <a href="mailto:support@bit-stroitelstvo.ru">support@bit-stroitelstvo.ru</a> с адреса, который был указан при регистрации.
+        </p>
+    </div>
+</div>
 
 const NewUserInfo = () =>
 <div className="card">
@@ -83,24 +94,14 @@ class Login extends Component {
     render() {
         let {isLoginPending, isLoginSuccess, loginError} = this.props;
 
-        if (isLoginPending) {
-            return (
-                <div>Please wait...</div>
-            )
-        } else if (isLoginSuccess) {
-            return (
-                <Redirect to={'/'} />
-                //<div>Logged in</div>
-            )
-        } else {
-            return (
-                <Wrapper>
-                    <LoginForm onSubmit={this.onSubmit} onLoginChange={this.onLoginChange} onPasswordChange={this.onPasswordChange} />
-                    { loginError && <div>{loginError}</div> }
-                    <NewUserInfo />
-                </Wrapper>);
-        }
-
+        return (
+            <Wrapper>
+                <LoginForm onSubmit={this.onSubmit} onLoginChange={this.onLoginChange} onPasswordChange={this.onPasswordChange} inProgress={this.props.isLoginPending}/>
+                {loginError && <LoginError errorText={loginError} />}
+                {isLoginPending && <div className="text-center"><i className="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>}
+                {isLoginSuccess && <Redirect to={'/'} /> }
+                <NewUserInfo />
+            </Wrapper>);
     }
 
     onSubmit(e) {

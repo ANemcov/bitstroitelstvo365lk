@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 
@@ -19,7 +20,12 @@ class NavLink extends Link {
 
 
 class Sidebar extends Component {
-  render() {
+    constructor(props) {
+        super(props);
+        this.handleLogout = this.handleLogout.bind(this);
+    }
+
+    render() {
     return (
         <div className="sidebar" data-color="purple" data-image="sidebar.jpg">
             <div className="sidebar-wrapper">
@@ -56,18 +62,30 @@ class Sidebar extends Component {
                         <p>Финансы</p>
                     </NavLink>
 
+                    <li onClick={this.handleLogout}>
+                        <Link to="/login">
+                            <i className="fa fa-power-off"></i>
+                            <p>Выход</p>
+                        </Link>
+                    </li>
+
                     <li className="active-pro">
                         <p>По вопросам обращайтесь на support@bit-stroitelstvo.ru или по телефону +7 (495) 134-1538</p>
                     </li>
 
                 </ul>
-
-
             </div>
         </div>
 
     );
-  }
+    }
+
+    handleLogout() {
+        this.props.dispatch({
+            type: "LOGOUT"
+        });
+    }
+
 }
 
-export default Sidebar;
+export default connect()(Sidebar);
