@@ -3,13 +3,6 @@ import { connect } from 'react-redux';
 
 var axios = require('axios');
 
-
-const DataScreen = (props) =>
-    <span>
-        Цена: {props.price}
-    </span>
-
-
 class Price extends Component {
     constructor(props) {
         super(props);
@@ -18,7 +11,7 @@ class Price extends Component {
             price: 0,
             isFetching: true
         };
-      }
+    }
     
     componentDidMount() {
         
@@ -31,16 +24,13 @@ class Price extends Component {
                     nusers: this.props.nusers
                 }
             }
-        }
-        ).then((response) => {
-            
+        }).then((response) => {
             if (response.status === 200) {
                 this.setState({
                     price: response.data.Cost, 
                     isFetching: false
                 });
             }
-    
         });
     
     }
@@ -58,6 +48,5 @@ const mapStateToProps = (state) => {
         credentials: state.credentials
     };
 }
-    
-    
+
 export default connect(mapStateToProps)(Price);
