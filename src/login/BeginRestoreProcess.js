@@ -16,18 +16,49 @@ const BeginRestoreForm = (props) =>
                         Укажите адрес почты, который был указан при регистрации. На этот адрес мы отправим уникальную ссылку для смены пароля.
                     </p>
                     <div className="form-group">
-                        <input type="mail" className="form-control" placeholder="mail@mail.ru" required />
+                        <input type="email" className="form-control" placeholder="mail@mail.ru" required onChange={props.onMailChange} />
                     </div>
                 </div>
             </div>
             <div className="row">
                 <div className="col-md-12 text-center">
                     <button type="submit" className="btn btn-success btn-fill" disabled={props.inProgress}>Получить код восстановления</button>
+                    {props.inProgress ? <ActivationInProgress /> : null}
+                    {props.success ? <ActivationSuccessful /> : null}
+                    {props.error ? <ActivationError errorText={props.errorText} /> : null}
                 </div>
             </div>
         </form>
     </div>
 </div>
+
+const ActivationInProgress = (props) => 
+<div className="text-center">
+    <i className="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+</div>
+
+
+const ActivationSuccessful = (props) => 
+<p className="content text-center text-success">
+    <strong>
+        <i className="fa fa-check" aria-hidden="true"></i> Письмо с кодом для смены пароля отправлено
+    </strong>
+</p>
+
+
+const ActivationError = (props) => 
+<div className="content">
+    <p className="text-center text-danger">
+        <strong>
+            Произошла ошибка: {props.errorText}
+        </strong>
+    </p>
+    <p>
+        Чтобы разобраться с ошибкой напишите на почту <a href="mailto:support@bit-stroitelstvo.ru">support@bit-stroitelstvo.ru</a> с адреса, который был указан при регистрации.
+    </p>
+</div>
+
+
 
 class BeginRestoreProcess extends Component {
     constructor(props) {
@@ -38,11 +69,10 @@ class BeginRestoreProcess extends Component {
             inProgress: false,
             success: false,
             error: false,
-            errorText: "Неверный код активации"
+            errorText: "Адрес не найден"
         }
 
         this.onSubmit = this.onSubmit.bind(this);
-        this.onMailChange = this.onMailChange.bind(this);
     }    
 
     render() {
@@ -50,17 +80,36 @@ class BeginRestoreProcess extends Component {
                 <BeginRestoreForm onSubmit={this.onSubmit}
                                 onMailChange={this.onMailChange}
                                 inProgress={this.state.inProgress}
+                                success={this.state.success}
+                                error={this.state.error}
+                                errorText={this.state.errorText}
                 />
         );
     }
 
-    onSubmit() {
-    
+    onSubmit(e) {
+        e.preventDefault();
+        this.setState({inProgress: true});
+        
+        axios.get(this.props.basePublicURL + '/account/password/restore/' + this.state.mail
+        ).then((response) => {
+            this.setState({
+                inProgress: false,
+                success: true,
+                error: false
+            });
+        })
+        .catch((error) => {
+            this.setState({
+                inProgress: false,
+                success: false,
+                error: true,
+                errorText: error.response === undefined ? "ошибка соединения" : error.response.data
+            });
+        });
     }
 
-    onMailChange(e) {
-
-    }
+    onMailChange = (e) => {this.setState({mail: e.target.value})}
     
     
 }
