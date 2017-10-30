@@ -88,7 +88,7 @@ class Transactions extends Component {
                 <div className="row">
                     <div className="col-md-8">
                         {this.state.isFetching && <LoadingScreen />} 
-                        {this.state.transactions.length == 0 ? null : <DataScreen data={this.state.transactions} />}
+                        {this.state.transactions.length === 0 ? null : <DataScreen data={this.state.transactions} />}
                     </div>
                 </div>
             </Container>
