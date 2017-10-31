@@ -61,7 +61,7 @@ const NewUserInfo = () =>
         <div className="row">
             <div className="col-md-12">
                 <p className="text-center">
-                    Узнать больше: <a href="http://bitstroitelstvo365.ru">bitstroitelstvo365.ru</a>, <a href="https://www.facebook.com/bitstroitelstvo365/"><i className="fa fa-facebook-square" aria-hidden="true"></i></a> <a href="https://www.youtube.com/channel/UCGiP8c_Po5bt4ENDYUw7S6Q"><i className="fa fa-youtube-square" aria-hidden="true"></i></a>
+                    Узнать больше: <a href="http://bitstroitelstvo365.ru">bitstroitelstvo365.ru</a>, <a href="https://www.facebook.com/bitstroitelstvo365/"><i className="fa fa-facebook-square"></i></a> <a href="https://www.youtube.com/channel/UCGiP8c_Po5bt4ENDYUw7S6Q"><i className="fa fa-youtube-square"></i></a>
                 </p>
                 <p className="text-center">
                     Можете зарегистрироваться самостоятельно

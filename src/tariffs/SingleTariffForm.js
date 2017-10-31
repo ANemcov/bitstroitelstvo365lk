@@ -10,7 +10,7 @@ const SingleTariffForm = (props) =>
             </div>
         </div>
     </div>
-    //TODO: for adding tatiff - TimeZone selector
+    (//TODO: for adding tatiff - TimeZone selector)
     <div className="row">    
         <div className="col-md-6">
             <div class="form-group">

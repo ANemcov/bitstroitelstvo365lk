@@ -65,13 +65,13 @@ function reducer(state = initialState, action) {
       newState.loginProcess.isLoginPending = false;
       newState.loginProcess.loginError = null;
       newState.loggedIn = true;
-      newState.credentials.login = action.login,
+      newState.credentials.login = action.login;
       newState.credentials.password = action.password;
       break;
     case "LOGOUT" :
       newState.loggedIn = false;
       newState.loginProcess.isLoginSuccess = false;
-      newState.credentials.login = "",
+      newState.credentials.login = "";
       newState.credentials.password = "";
       break;
     default:
