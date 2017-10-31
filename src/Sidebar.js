@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import { withRouter } from 'react-router';
 
 class NavLink extends Link {
     render() {
@@ -27,7 +27,7 @@ class Sidebar extends Component {
 
     render() {
     return (
-        <div className="sidebar" data-color="purple" data-image="sidebar.jpg">
+        <div className="sidebar" data-color="purple">
             <div className="sidebar-wrapper">
                 <div className="logo">
                     <a href="http://alexanderkiskin.pro" className="simple-text">
@@ -88,4 +88,4 @@ class Sidebar extends Component {
 
 }
 
-export default connect()(Sidebar);
+export default withRouter(connect()(Sidebar));

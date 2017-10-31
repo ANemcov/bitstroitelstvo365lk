@@ -94,7 +94,7 @@ ReactDOM.render((
         <Route exact path="/newcustomer" component={Newcustomer}/>
         <Route exact path="/activation" component={AccountActivation}/>
         <EnsureLoggedInContainer>
-          <div className="wrapper" >
+          <div className="wrapper">
               <Sidebar />
               <Route exact path="/" component={Homepage}/>
               <Route exact path="/profile" component={Profile}/>
