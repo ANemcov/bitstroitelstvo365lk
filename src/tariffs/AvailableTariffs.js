@@ -25,20 +25,33 @@ const DataScreen = (props) =>
     </div>
 
 const SingleTariff = (props) => 
-    <div className="row">
-        <div className="col-md-4">
-            {props.tariff.TariffName}
-        </div>
-        <div className="col-md-2">
-            {"до " + props.tariff.MaxAmountOfLicenses + " пользователей"}
-        </div>
-        <div className="col-md-2">
-            от <Price id={props.tariff.TariffId} modules={props.tariff.Modules} options={props.tariff.Options} nusers={props.tariff.MinAmountOfLicenses} /> руб.
-        </div>
-        <div className="col-md-4">
-            <button className="btn btn-info">Подключить</button>            
+<div className="panel panel-default">
+    <div className="panel-heading">
+        <strong>{props.tariff.TariffName}</strong>
+        {props.tariff.TestAvailable ? <span className="text-success"> <i className="fa fa-check" aria-hidden="true"></i> бесплатный тестовый период: {props.tariff.TestDuration} дн.</span> : null}
+        {props.tariff.NoBalanceCheckToSubscribe ? null : <span className="text-danger"> <i className="fa fa-rub" aria-hidden="true"></i> для подключения необходима предоплата</span>}
+    </div>
+    <div className="panel-body">
+        <div className="row">
+            <div className="col-md-3">
+                Конфигурация: <strong>{props.tariff.Config.Name}</strong>
+            </div>
+            <div className="col-md-3">
+                 до {props.tariff.MaxAmountOfLicenses} одновременных подключений
+            </div>
+            <div className="col-md-4">
+                Стоимость: <strong>
+                    {props.tariff.MinAmountOfLicenses === props.tariff.MaxAmountOfLicenses ? null : "от "} 
+                    <Price id={props.tariff.TariffId} modules={props.tariff.Modules} options={props.tariff.Options} nusers={props.tariff.MinAmountOfLicenses} /> руб.
+                     за {props.tariff.Periodicity.toLowerCase()}
+                </strong>
+            </div>
+            <div className="col-md-2">
+                <button className="btn btn-success btn-fill">Подключить</button>            
+            </div>
         </div>
     </div>
+</div>
 
 
 class AvailableTariffs extends Component {

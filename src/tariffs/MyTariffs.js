@@ -30,20 +30,25 @@ const NoTariffs = () =>
 
 
 const SingleTariff = (props) => 
-<div className="row">
-    <div className="col-md-4">
-        {props.tariff.App.Name}
-    </div>
-    <div className="col-md-4">
-        {props.tariff.Tariff.Name}
-    </div>
-    <div className="col-md-2">
-        {props.tariff.Nusers}
-    </div>
-    <div className="col-md-2">
-        <Link to={{pathname: "/tariffs/edit", state: {tariff: props.tariff}}}>
-            <button className="btn btn-info">Изменить</button>
-        </Link>
+<div className="panel panel-default">
+    <div className="panel-heading">{props.tariff.App.Name}</div>
+    <div className="panel-body">
+        <div className="row">
+            <div className="col-md-4">
+                {props.tariff.App.Name}
+            </div>
+            <div className="col-md-4">
+                {props.tariff.Tariff.Name}
+            </div>
+            <div className="col-md-2">
+                {props.tariff.Nusers}
+            </div>
+            <div className="col-md-2">
+                <Link to={{pathname: "/tariffs/edit", state: {tariff: props.tariff}}}>
+                    <button className="btn btn-info">Изменить</button>
+                </Link>
+            </div>
+        </div>
     </div>
 </div>
 
