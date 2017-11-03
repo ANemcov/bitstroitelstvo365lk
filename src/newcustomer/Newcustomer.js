@@ -43,7 +43,7 @@ const NewcustomerForm = (props) =>
                 <div className="col-md-12">
                     <div className="form-group">
                         <label>Электронная почта</label>
-                        <input type="mail" className="form-control" placeholder="mail@mail.ru" aria-describedby="helpBlockMail" required pattern="[0-9a-zA-Z_\.]+@[0-9a-zA-Z_\.]+" onChange={props.onMailChange} />
+                        <input type="email" className="form-control" placeholder="mail@mail.ru" aria-describedby="helpBlockMail" required pattern="[0-9a-zA-Z_\.]+@[0-9a-zA-Z_\.]+" onChange={props.onMailChange} />
                         <p id="helpBlockMail" className="help-block"><small>Почта будет использоваться для входа в систему</small></p>
                     </div>
                 </div>
@@ -65,11 +65,42 @@ const NewcustomerForm = (props) =>
                         Вы получите письмо с кодом активации на почту
                     </p>
                     <p className="text-center">
-                        <button type="submit" className="btn btn-success btn-fill">Начать регистрацию</button><br />
+                        <button type="submit" className="btn btn-success btn-fill" disabled={props.inProgress}>Начать регистрацию</button><br />
                     </p>
                 </div>
             </div>
         </form>
+    </div>
+</div>
+
+const RegistrationInProgress = (props) => 
+<div className="card">
+    <div className="content">
+        <div className="text-center"><i className="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>
+    </div>
+</div>
+
+const RegistrationSuccessful = (props) => 
+<div className="card">
+    <div className="content">
+        <p className="text-center text-success"><strong>
+            Регистрация прошла успешно
+        </strong></p>
+        <p>
+            Проверьте вашу почту: в письме от нас будет ссылка для активации учетной записи.
+        </p>
+    </div>
+</div>
+
+const RegistrationError = (props) => 
+<div className="card">
+    <div className="content">
+        <p className="text-center text-danger"><strong>
+            Произошла ошибка: {props.errorText}
+        </strong></p>
+        <p>
+            Чтобы разобраться с ошибкой напишите нам на почту <a href="mailto:support@bit-stroitelstvo.ru">support@bit-stroitelstvo.ru</a> с адреса, который был указан при регистрации.
+        </p>
     </div>
 </div>
 
@@ -82,7 +113,11 @@ class Newcustomer extends Component {
             fullname: "",
             phone: "",
             mail: "",
-            password: ""
+            password: "",
+            inProgress: false,
+            success: false,
+            error: false,
+            errorText: "Такая почта уже используется"            
         }
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -102,17 +137,17 @@ class Newcustomer extends Component {
                                 onPhoneChange={this.onPhoneChange}
                                 onMailChange={this.onMailChange}
                                 onPasswordChange={this.onPasswordChange}
-                 />
-            </Wrapper>);
+                                inProgress={this.state.inProgress}
+                />
+                {this.state.inProgress ? <RegistrationInProgress /> : null}
+                {this.state.success ? <RegistrationSuccessful /> : null}
+                {this.state.error ? <RegistrationError errorText={this.state.errorText} /> : null}
+             </Wrapper>);
     }
 
     onSubmit(e) {
         e.preventDefault();
-
-        //check validity
-        
         this.beginRegistration();
-
     }
 
     onCompanyChange(e) {
@@ -134,10 +169,39 @@ class Newcustomer extends Component {
 
     beginRegistration() {
         
+        this.setState({inProgress: true});
+        
+        axios.get(this.props.basePublicURL + '/account/registration',
+        {          
+            params: {
+                company: this.state.company,
+                login: this.state.mail,
+                mail: this.state.mail,
+                name: this.state.fullname,
+                password: this.state.password,
+                tel: this.state.phone
+            }
+        }
+        ).then((response) => {
+            this.setState({
+                inProgress: false,
+                success: true,
+                error: false
+            });
+        })
+        .catch((error) => {
+            this.setState({
+                inProgress: false,
+                success: false,
+                error: true,
+                errorText: error.response === undefined ? "ошибка соединения" : error.response.data
+            });
+        });        
+    }          
 
-    }    
+}    
 
-}
+
 
 const mapStateToProps = (state) => {
     return {
