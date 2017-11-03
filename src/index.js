@@ -32,8 +32,8 @@ const initialState = {
     login: "Test03",
     password: "P@ssw0rd"
   },
-  basePrivateURL: "https://devfresh.bit-live.ru/coreprivateapi", //get this from ENV
-  basePublicURL: "https://devfresh.bit-live.ru/corepublicapi", //get this from ENV
+  basePrivateURL: process.env.REACT_APP_PRIVATE_API_URL, //get this from ENV
+  basePublicURL: process.env.REACT_APP_PUBLIC_API_URL, //get this from ENV
   loginProcess: {
     isLoginPending: false,
     isLoginSuccess: false,
