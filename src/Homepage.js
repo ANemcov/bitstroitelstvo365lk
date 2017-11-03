@@ -37,7 +37,8 @@ const DataScreen = (props) =>
                 <h1>Ваши приложения</h1>
             </div>
             <div className="content">
-                {props.apps.map(app => <SingleApp app={app} key={app.Id} />)}
+                { props.apps.length === 0 ? <NoApps /> :
+                    props.apps.map(app => <SingleApp app={app} key={app.Id} />)}
                 <div>
                     <button className="btn btn-default" onClick={props.refresh}>
                         <i className="fa fa-refresh" aria-hidden="true"></i>
@@ -49,7 +50,8 @@ const DataScreen = (props) =>
     </div>
 </div>
 
-
+const NoApps = () =>
+<p>Еще нет ни одного приложения. Для подключения перейдите в раздел <Link to="/tariffs">Тарифы</Link></p>
 
 const SingleApp = (props) => 
 <div className="panel panel-default">
