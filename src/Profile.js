@@ -96,7 +96,7 @@ class Profile extends Component {
     
     componentDidMount() {
 
-        axios.get('https://devfresh.bit-live.ru/coreprivateapi/finance/company',
+        axios.get(this.props.basePrivateURL + '/finance/company',
             {
                 auth: {
                     username: this.props.credentials.login,
