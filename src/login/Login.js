@@ -43,9 +43,9 @@ const LoginForm = (props) =>
 const LoginError = (props) => 
 <div className="card">
     <div className="content">
-        <p className="text-center text-danger">
+        <p className="text-center text-danger"><strong>
             Произошла ошибка: {props.errorText}
-        </p>
+        </strong></p>
         <p>
             Проверьте свой логин и пароль. Если считаете, что все верно - напишите нам о проблеме на <a href="mailto:support@bit-stroitelstvo.ru">support@bit-stroitelstvo.ru</a> с адреса, который был указан при регистрации.
         </p>
@@ -161,7 +161,7 @@ class Login extends Component {
                 if (error.response.status === 401) {
                     this.props.dispatch({
                         type: "LOGIN_ERROR",
-                        text: "Неверные данные для входа"
+                        text: "Указаны неверные данные для входа"
                     });
                 } else {
                     this.props.dispatch({
