@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Price from './Price.js';
 var axios = require('axios');
 
@@ -42,12 +43,14 @@ const SingleTariff = (props) =>
             <div className="col-md-4">
                 Стоимость: <strong>
                     {props.tariff.MinAmountOfLicenses === props.tariff.MaxAmountOfLicenses ? null : "от "} 
-                    <Price id={props.tariff.TariffId} modules={props.tariff.Modules} options={props.tariff.Options} nusers={props.tariff.MinAmountOfLicenses} /> руб.
+                    <Price id={props.tariff.TariffId} modules={props.tariff.Modules.filter(elem => elem.Mandatory).map(elem => elem.Id)} options={[]} nusers={props.tariff.MinAmountOfLicenses} /> руб.
                      за {props.tariff.Periodicity.toLowerCase()}
                 </strong>
             </div>
             <div className="col-md-2">
-                <button className="btn btn-success btn-fill">Подключить</button>            
+                <Link to={{pathname: "/tariffs/add", state: {tariff: props.tariff}}}>
+                    <button className="btn btn-success btn-fill">Подключить</button>
+                </Link>
             </div>
         </div>
     </div>

@@ -19,8 +19,8 @@ class Price extends Component {
         {
             params: {
                 data: {
-                    modules: this.props.modules.map(elem => elem["Id"]),
-                    options: this.props.options.map(elem => elem["Id"]),
+                    modules: this.props.modules,
+                    options: this.props.options,
                     nusers: this.props.nusers
                 }
             }
