@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 var axios = require('axios');
 
@@ -51,7 +50,7 @@ const Information = () =>
         <div className="card">
             <div className="content">
                 <i className="fa fa-info-circle" aria-hidden="true"></i>
-                Новые пользователи создаются непосредственно в приложении: <a href="https://bitstroitelstvo.atlassian.net/wiki/spaces/365KB/pages/75890724/.+365" target="_blank">перейти в базу знаний</a> или посмотреть <a href="https://www.youtube.com/watch?v=Bq12bNJUBs4" target="_blank">видео про добавление пользователей</a>.
+                Новые пользователи создаются непосредственно в приложении: <a href="https://bitstroitelstvo.atlassian.net/wiki/spaces/365KB/pages/75890724/.+365" target="_blank" rel="noopener noreferrer">перейти в базу знаний</a> или посмотреть <a href="https://www.youtube.com/watch?v=Bq12bNJUBs4" target="_blank" rel="noopener noreferrer">видео про добавление пользователей</a>.
             </div>
         </div>
     </div>
@@ -74,7 +73,7 @@ const SingleUser = (props) =>
             </div>
             <div className="col-md-5">
                 <p>Доступ к приложениям</p>
-                {props.data.Rights.map(elem => <span><i className="fa fa-angle-right" aria-hidden="true"></i>{elem.Name} - {elem.Right}<br /></span>)}
+                {props.data.Rights.map( (elem,index) => <span key={index}><i className="fa fa-angle-right" aria-hidden="true"></i>{elem.Name} - {elem.Right}<br /></span>)}
             </div>
             <div className="col-md-4">
                 <ActionBlockUnblock key={props.data.Id} id={props.data.Id} blocked={props.data.Blocked} onBlock={props.onBlock} onUnblock={props.onUnblock} />
