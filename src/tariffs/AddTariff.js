@@ -48,9 +48,14 @@ class AddTariff extends Component {
 
                         <div className="row">
                             <div className="col-md-12">
-                                <div className="text-center"><p>
-                                    Цена: <Price id={this.state.tariff.TariffId} modules={this.state.modules} options={this.state.options} nusers={this.state.nusers} /> руб.
-                                </p></div>
+                                <div className="text-center">
+                                    <p>
+                                    Цена: <Price id={this.state.tariff.TariffId} modules={this.state.modules} options={this.state.options} nusers={this.state.nusers} /> руб. за {this.state.tariff.Periodicity.toLowerCase()}
+                                    </p>
+                                    <p>
+                                    {this.state.tariff.TestAvailable ? <span className="text-success"><i className="fa fa-check" aria-hidden="true"></i> Будет включен бесплатный тестовый период на {this.state.tariff.TestDuration} дн.</span> : null}
+                                    </p>
+                                </div>
                             </div>
                         </div>
 
