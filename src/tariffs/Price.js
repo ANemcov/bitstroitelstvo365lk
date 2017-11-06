@@ -14,14 +14,28 @@ class Price extends Component {
     }
     
     componentDidMount() {
+        this.getPrice(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.getPrice(nextProps);
+    }     
+
+    render() {
+        return(
+            this.state.isFetching ? null : <span>{this.state.price}</span> 
+        );
+    }
+
+    getPrice(props) {
         
-        axios.get(this.props.basePublicURL + `/tariffs/${this.props.id}/quote`,
+        axios.get(props.basePublicURL + `/tariffs/${props.id}/quote`,
         {
             params: {
                 data: {
-                    modules: this.props.modules,
-                    options: this.props.options,
-                    nusers: this.props.nusers
+                    modules: props.modules,
+                    options: props.options,
+                    nusers: props.nusers
                 }
             }
         }).then((response) => {
@@ -32,13 +46,7 @@ class Price extends Component {
                 });
             }
         });
-    
-    }
 
-    render() {
-        return(
-            this.state.isFetching ? null : <span>{this.state.price}</span> 
-        );
     }
 }
     
