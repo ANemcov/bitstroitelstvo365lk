@@ -156,19 +156,28 @@ class Login extends Component {
 
         })
         .catch((error) => {
-            console.log("ERROR");
-            console.log(error);
 
-            this.props.dispatch({
-                type: "LOGIN_ERROR",
-                text: error.message
-                
-            });
+            if (error.response) {
+                if (error.response.status === 401) {
+                    this.props.dispatch({
+                        type: "LOGIN_ERROR",
+                        text: "Неверные данные для входа"
+                    });
+                } else {
+                    this.props.dispatch({
+                        type: "LOGIN_ERROR",
+                        text: error.response.data
+                    });
+                }
+            } else {
+                this.props.dispatch({
+                    type: "LOGIN_ERROR",
+                    text: error.message
+                });
+            }
 
         });
 
-
-        
     }    
 
 }
