@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import noApps from './images/no-apps.png';
 var axios = require('axios');
 
 
@@ -51,26 +52,36 @@ const DataScreen = (props) =>
 </div>
 
 const NoApps = () =>
-<p>Еще нет ни одного приложения. Для подключения перейдите в раздел <Link to="/tariffs">Тарифы</Link></p>
+<div className="row">
+    <div className="col-md-2">
+        <img src={noApps} className="img-responsive" alt="" />
+    </div>
+    <div className="col-md-10">
+        <p><strong>Еще нет ни одного приложения.</strong></p>
+        <p>Для подключения перейдите в раздел <Link to="/tariffs">Настройки тарифов</Link>.</p>
+        <p>Там можно создать бесплатную тестовую базу и попробовать систему в действии.</p>
+    </div>    
+</div>
 
 const SingleApp = (props) => 
 <div className="panel panel-default">
-    <div className="panel-heading">{props.app.Name}</div>
+    <div className="panel-heading">
+        <strong>{props.app.Name}</strong>
+    </div>
     <div className="panel-body">
         <div className="row">
-            <div className="col-md-4 vertical-align">
+            <div className="col-md-4">
                 {props.app.ConfigName + " версии " + props.app.ConfigVersionName}
             </div>
-            <div className="col-md-2 vertical-align">
+            <div className="col-md-2">
                 {props.app.Status}
             </div>
-            <div className="col-md-4 vertical-align">
-                <a href={props.app.URLWithCredentials} target="_blank">{props.app.URL}</a>
-            </div>
-            <div className="col-md-2 vertical-align">
-                <a href={props.app.URLWithCredentials} target="_blank">
-                    {props.app.URL && <button className="btn btn-default btn-fill">Запустить</button>}
+            <div className="col-md-6">
+                {props.app.URL && <span>Перейти в приложение: <a href={props.app.URLWithCredentials} target="_blank">
+                <strong>{props.app.URL}</strong>
                 </a>
+                </span>
+                }
             </div>
         </div>
     </div>
@@ -91,7 +102,7 @@ const Information = () =>
         <div className="card">
             <div className="content">
                 <i className="fa fa-info-circle" aria-hidden="true"></i>
-                Подключение, отключение и изменение параметров приложений производится в разделе <Link to="/tariffs">Тарифы</Link>.
+                Подключение, отключение и изменение параметров приложений производится в разделе <Link to="/tariffs">Настройки тарифов</Link>.
             </div>
         </div>
     </div>
@@ -143,7 +154,8 @@ class Homepage extends Component {
             
             if (response.status === 200) {
                 this.setState({
-                    applications: response.data, 
+                    applications: response.data,
+                    //applications: [], 
                     isFetching: false
                 });
             }
