@@ -52,8 +52,7 @@ class Price extends Component {
     
 const mapStateToProps = (state) => {
     return {
-        basePublicURL: state.basePublicURL,
-        credentials: state.credentials
+        basePublicURL: state.basePublicURL
     };
 }
 

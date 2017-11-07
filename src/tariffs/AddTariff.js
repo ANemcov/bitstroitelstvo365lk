@@ -32,7 +32,8 @@ class AddTariff extends Component {
             nusers: tariff.MinAmountOfLicenses,
             modules: tariff.Modules.filter(elem => elem.Mandatory).map(elem => elem.Id),
             options: [],
-            name : tariff.Config.Name
+            name : tariff.Config.Name,
+            timezone: "Europe/Moscow"
         };
     }
 
@@ -44,6 +45,7 @@ class AddTariff extends Component {
                         <SingleTariffForm tariff={this.state.tariff} 
                             onUsersChange={this.onUsersChange}
                             onModuleChange={this.onModuleChange}
+                            onTimezoneChange={this.onTimezoneChange}
                          />
 
                         <div className="row">
@@ -80,6 +82,7 @@ class AddTariff extends Component {
     }
 
     onUsersChange = (e) => {this.setState({nusers: e.target.value})}
+    onTimezoneChange = (e) => {this.setState({timezone: e.target.value})}
     
     onModuleChange = (e) => {
         let modules = [];

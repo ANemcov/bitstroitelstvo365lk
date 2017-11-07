@@ -1,4 +1,5 @@
 import React from 'react';
+import Timezone from './Timezone.js';
 
 const SingleTariffForm = (props) =>
 <form>
@@ -25,7 +26,15 @@ const SingleTariffForm = (props) =>
             </div>
         </div>
     </div>
-    (//TODO: for adding tatiff - TimeZone selector)
+    
+    <div className="row">
+        <div className="col-md-12">
+            <div className="form-group">
+                <label>Часовой пояс</label>
+                <Timezone onChange={props.onTimezoneChange} />
+            </div>
+        </div>
+    </div>
 
     {props.tariff.Modules.length > 0 &&
         <div className="row">    
