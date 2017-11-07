@@ -22,7 +22,7 @@ const SingleTariffForm = (props) =>
         <div className="col-md-12">
             <div className="form-group">
                 <label>Имя приложения (название базы)</label>
-                <input type="text" className="form-control" defaultValue={props.mytariff ? props.mytariff.App.Name : props.tariff.Config.Name} />
+                <input type="text" className="form-control" defaultValue={props.mytariff ? props.mytariff.App.Name : props.tariff.Config.Name} onChange={props.onNameChange} />
             </div>
         </div>
     </div>

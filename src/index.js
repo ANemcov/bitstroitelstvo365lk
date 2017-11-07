@@ -20,14 +20,17 @@ import AccountActivation from './newcustomer/AccountActivation.js';
 import Sidebar from './Sidebar.js';
 import Homepage from './Homepage.js';
 import Profile from './Profile.js';
+
 import Tariffs from './tariffs/Tariffs.js';
 import EditMyTariff from './tariffs/MyTariffsEdit.js';
+import AddTariff from './tariffs/AddTariff.js';
+
 import Users from './Users.js';
 import Finance from './finance/Finance.js';
 
 
 const initialState = {
-  loggedIn: false, //stub not to login while developing
+  loggedIn: true, //stub not to login while developing
   credentials: {
     login: "Test03",
     password: "P@ssw0rd"
@@ -100,6 +103,7 @@ ReactDOM.render((
               <Route exact path="/profile" component={Profile}/>
               <Route exact path="/tariffs" component={Tariffs}/>
               <Route exact path="/tariffs/edit" component={EditMyTariff}/>
+              <Route exact path="/tariffs/add" component={AddTariff}/>
               <Route exact path="/users" component={Users}/>
               <Route exact path="/finance" component={Finance}/>
           </div>
