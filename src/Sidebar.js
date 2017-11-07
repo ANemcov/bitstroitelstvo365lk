@@ -70,7 +70,9 @@ class Sidebar extends Component {
                     </li>
 
                     <li className="active-pro">
-                        <p>По вопросам обращайтесь на support@bit-stroitelstvo.ru или по телефону +7 (495) 134-1538</p>
+                        <p>По вопросам обращайтесь:<br />
+                        <i className="fa fa-angle-right" aria-hidden="true"></i> support@bit-stroitelstvo.ru<br />
+                        <i className="fa fa-angle-right" aria-hidden="true"></i> по телефону +7 (812) 677 02 77</p>
                     </li>
 
                 </ul>
