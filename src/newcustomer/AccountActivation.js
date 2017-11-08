@@ -88,8 +88,7 @@ class AccountActivation extends Component {
         const code = params.get('code');
 
         if (code != null) { 
-            this.setState({code: code}); 
-            this.activate();
+            this.setState({code: code}, () =>  this.activate() );           
         }
     }
 
