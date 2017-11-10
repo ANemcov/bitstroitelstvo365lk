@@ -122,12 +122,6 @@ class Newcustomer extends Component {
             errorText: "Такая почта уже используется"            
         }
 
-        this.onSubmit = this.onSubmit.bind(this);
-        this.onCompanyChange = this.onCompanyChange.bind(this);
-        this.onFIOChange = this.onFIOChange.bind(this);
-        this.onPhoneChange = this.onPhoneChange.bind(this);
-        this.onMailChange = this.onMailChange.bind(this);
-        this.onPasswordChange = this.onPasswordChange.bind(this);
     }
 
     render() {
@@ -147,27 +141,15 @@ class Newcustomer extends Component {
              </Wrapper>);
     }
 
-    onSubmit(e) {
+    onSubmit = (e) => {
         e.preventDefault();
         this.beginRegistration();
     }
-
-    onCompanyChange(e) {
-        this.setState({company: e.target.value});
-    }
-    onFIOChange(e) {
-        this.setState({fullname: e.target.value});
-    }
-    onPhoneChange(e) {
-        this.setState({phone: e.target.value});
-    }
-    onMailChange(e) {
-        this.setState({mail: e.target.value});
-    }
-    onPasswordChange(e) {
-        this.setState({password: e.target.value});
-    }
-
+    onCompanyChange = (e) => this.setState({company: e.target.value});
+    onFIOChange = (e) => this.setState({fullname: e.target.value});
+    onPhoneChange = (e) => this.setState({phone: e.target.value});
+    onMailChange = (e) => this.setState({mail: e.target.value});
+    onPasswordChange = (e) => this.setState({password: e.target.value});
 
     beginRegistration() {
         
@@ -202,8 +184,6 @@ class Newcustomer extends Component {
     }          
 
 }    
-
-
 
 const mapStateToProps = (state) => {
     return {
