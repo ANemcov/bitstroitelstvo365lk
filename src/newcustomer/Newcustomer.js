@@ -60,48 +60,50 @@ const NewcustomerForm = (props) =>
             </div>
 
             <div className="row">
-                <div className="col-md-12">
-                    <p className="text-center">
-                        Вы получите письмо с кодом активации на почту
-                    </p>
-                    <p className="text-center">
-                        <button type="submit" className="btn btn-success btn-fill" disabled={props.inProgress}>Начать регистрацию</button><br />
-                    </p>
-                </div>
+                {( !props.inProgress && !props.success ) ? <StartButton /> : null}
+                {props.inProgress ? <RegistrationInProgress /> : null}
+                {props.success ? <RegistrationSuccessful /> : null}
+                {props.error ? <RegistrationError errorText={props.errorText} /> : null}
             </div>
         </form>
     </div>
 </div>
 
+const StartButton = (props) =>
+<div className="col-md-12">
+    <p className="text-center">
+        Вы получите письмо с кодом активации на почту
+    </p>
+    <p className="text-center">
+        <button type="submit" className="btn btn-success btn-fill">Начать регистрацию</button><br />
+    </p>
+</div>
+
+
+
 const RegistrationInProgress = (props) => 
-<div className="card">
-    <div className="content">
-        <div className="text-center"><i className="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>
-    </div>
+<div className="col-md-12">
+    <div className="text-center"><i className="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>
 </div>
 
 const RegistrationSuccessful = (props) => 
-<div className="card">
-    <div className="content">
-        <p className="text-center text-success"><strong>
-            Регистрация прошла успешно
-        </strong></p>
-        <p>
-            Проверьте вашу почту: в письме от нас будет ссылка для активации учетной записи.
-        </p>
-    </div>
+<div className="col-md-12">
+    <p className="text-center text-success"><strong>
+        Регистрация прошла успешно
+    </strong></p>
+    <p className="text-center">
+        Проверьте вашу почту: в письме от нас будет ссылка для активации учетной записи.
+    </p>
 </div>
 
 const RegistrationError = (props) => 
-<div className="card">
-    <div className="content">
-        <p className="text-center text-danger"><strong>
-            Произошла ошибка: {props.errorText}
-        </strong></p>
-        <p>
-            Чтобы разобраться с ошибкой напишите нам на почту <a href="mailto:support@bit-stroitelstvo.ru">support@bit-stroitelstvo.ru</a> с адреса, который был указан при регистрации.
-        </p>
-    </div>
+<div className="col-md-12">
+    <p className="text-center text-danger"><strong>
+        Произошла ошибка: {props.errorText}
+    </strong></p>
+    <p className="text-center">
+        Чтобы разобраться с ошибкой напишите нам на почту <a href="mailto:support@bit-stroitelstvo.ru">support@bit-stroitelstvo.ru</a> с адреса, который был указан при регистрации.
+    </p>
 </div>
 
 class Newcustomer extends Component {
@@ -138,10 +140,10 @@ class Newcustomer extends Component {
                                 onMailChange={this.onMailChange}
                                 onPasswordChange={this.onPasswordChange}
                                 inProgress={this.state.inProgress}
+                                success={this.state.success}
+                                error={this.state.error}
+                                errorText={this.state.errorText}
                 />
-                {this.state.inProgress ? <RegistrationInProgress /> : null}
-                {this.state.success ? <RegistrationSuccessful /> : null}
-                {this.state.error ? <RegistrationError errorText={this.state.errorText} /> : null}
              </Wrapper>);
     }
 
