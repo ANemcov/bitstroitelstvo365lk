@@ -87,11 +87,6 @@ class Profile extends Component {
             posted: false
         };
 
-        this.onSubmit = this.onSubmit.bind(this);
-        this.onInnChange = this.onInnChange.bind(this);
-        this.onKppChange = this.onKppChange.bind(this);
-        this.onLegalNameChange = this.onLegalNameChange.bind(this);
-        this.onMailingAddressChange = this.onMailingAddressChange.bind(this);
       }
     
     componentDidMount() {
@@ -134,7 +129,7 @@ class Profile extends Component {
         );
     }
 
-    onSubmit(e) {
+    onSubmit = (e) => {
         e.preventDefault();
 
         axios.get(this.props.basePrivateURL + '/finance/company/update',
@@ -164,18 +159,10 @@ class Profile extends Component {
 
 
     }
-    onInnChange(e) {
-        this.setState({INN: e.target.value});
-    }
-    onKppChange(e) {
-        this.setState({KPP: e.target.value});
-    }    
-    onLegalNameChange(e) {
-        this.setState({LegalName: e.target.value});
-    }
-    onMailingAddressChange(e) {
-        this.setState({MailingAddress: e.target.value});
-    }
+    onInnChange = (e) => { this.setState({INN: e.target.value}); }
+    onKppChange = (e) => { this.setState({KPP: e.target.value}); }    
+    onLegalNameChange = (e) => { this.setState({LegalName: e.target.value}); }
+    onMailingAddressChange = (e) => { this.setState({MailingAddress: e.target.value}); }
 
 }
   
