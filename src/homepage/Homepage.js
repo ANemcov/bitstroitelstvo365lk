@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import noApps from './images/no-apps.png';
+
+import CreateTestBase from './CreateTestBase.js';
+import noApps from '../images/no-apps.png';
+
 var axios = require('axios');
 
 
@@ -108,6 +111,42 @@ const Information = () =>
     </div>
 </div>
 
+const Welcome = (props) =>
+<div className="container-fluid">
+    <div className="row">
+        <div className="col-md-4" style={{height: 180}}>
+            <div className="card" style={{height: 160}}>
+                <div className="content">
+                    <p className="text-center">Посмотреть интерфейс программы с помощью интерактивного кейса по бухгалтерскому учету</p>
+                    <div className="text-center" style={{ width: "100%", left: 0, bottom: 30, position: "absolute"}}><a href="https://365.bit-stroitelstvo.ru/edu/contractor/story.html?referrer=lk" target="_blank" rel="noopener noreferrer">
+                        <button className="btn btn-info btn-fill">Открыть курс</button>
+                    </a></div>
+                </div>
+            </div>
+        </div>
+
+        <div className="col-md-4" style={{height: 180}}>
+            <div className="card" style={{height: 160}}>
+                <CreateTestBase onCreate={props.getApplications}/>
+            </div>
+        </div>
+
+
+        <div className="col-md-4" style={{height: 180}}>
+            <div className="card" style={{height: 160}}>
+                <div className="content">
+                    <p className="text-center">Загрузить данные из вашей текущей 1С в тестовую базу</p>
+                    <div className="text-center" style={{ width: "100%", left: 0, bottom: 30, position: "absolute"}}>
+                        <Link to="/loadmydata">
+                            <button className="btn btn-info">Перейти</button>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+
 
 class Homepage extends Component {
     constructor(props) {
@@ -117,27 +156,23 @@ class Homepage extends Component {
             applications: [],
             isFetching: true
         };
-
-        this.getApplications = this.getApplications.bind(this);
       }
     
     componentDidMount() {
-
-
         this.getApplications();
-    
     }
 
     render() {
         return(
             <Container>
+                <Welcome getApplications={this.getApplications} />
                 {this.state.isFetching ? <LoadingScreen /> : <DataScreen apps={this.state.applications} refresh={this.getApplications} />}
                 <Information />
             </Container>
         );
     }
 
-    getApplications() {
+    getApplications = () => {
 
         this.setState({
             isFetching: true

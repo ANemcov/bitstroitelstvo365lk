@@ -18,7 +18,8 @@ import Newcustomer from './newcustomer/Newcustomer.js';
 import AccountActivation from './newcustomer/AccountActivation.js';
 
 import Sidebar from './Sidebar.js';
-import Homepage from './Homepage.js';
+import Homepage from './homepage/Homepage.js';
+import LoadMyData from './homepage/LoadMyData.js';
 import Profile from './Profile.js';
 
 import Tariffs from './tariffs/Tariffs.js';
@@ -30,7 +31,7 @@ import Finance from './finance/Finance.js';
 
 
 const initialState = {
-  loggedIn: false, //stub not to login while developing
+  loggedIn: true, //stub not to login while developing
   credentials: {
     login: "Test03",
     password: "P@ssw0rd"
@@ -100,6 +101,7 @@ ReactDOM.render((
           <div className="wrapper">
               <Sidebar />
               <Route exact path="/" component={Homepage}/>
+              <Route exact path="/loadmydata" component={LoadMyData}/>
               <Route exact path="/profile" component={Profile}/>
               <Route exact path="/tariffs" component={Tariffs}/>
               <Route exact path="/tariffs/edit" component={EditMyTariff}/>
