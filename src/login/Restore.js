@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import 'url-search-params-polyfill';
 
 import Wrapper from '../common/SingleColumnWrapper.js';
 import BeginRestoreProcess from './BeginRestoreProcess.js';

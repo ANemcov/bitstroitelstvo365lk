@@ -31,7 +31,7 @@ import Finance from './finance/Finance.js';
 
 
 const initialState = {
-  loggedIn: true, //stub not to login while developing
+  loggedIn: false, //stub not to login while developing
   credentials: {
     login: "Test03",
     password: "P@ssw0rd"

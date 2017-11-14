@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import 'url-search-params-polyfill';
+
 import Wrapper from '../common/SingleColumnWrapper.js'
 
 var axios = require('axios');
