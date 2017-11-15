@@ -119,7 +119,7 @@ const Welcome = (props) =>
                 <div className="content">
                     <p className="text-center">Посмотреть интерфейс программы с помощью интерактивного кейса по бухгалтерскому учету</p>
                     <div className="text-center" style={{ width: "100%", left: 0, bottom: 30, position: "absolute"}}><a href="https://365.bit-stroitelstvo.ru/edu/contractor/story.html?referrer=lk" target="_blank" rel="noopener noreferrer">
-                        <button className="btn btn-info btn-fill">Открыть курс</button>
+                        <button className="btn btn-success btn-fill">Открыть курс</button>
                     </a></div>
                 </div>
             </div>
