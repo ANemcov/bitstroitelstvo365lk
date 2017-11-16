@@ -141,9 +141,7 @@ class Login extends Component {
         }
         ).then((response) => {
 
-            console.log(JSON.stringify(response));
-            
-            if (response.status === 200) {
+           if (response.status === 200) {
                 
                 this.props.dispatch({
                     type: "IS_LOGGED_IN",

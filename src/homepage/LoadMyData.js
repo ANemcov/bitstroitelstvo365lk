@@ -37,7 +37,10 @@ const DataBuh2 = () =>
 </div>
 
 const DataOther = () =>
-<p><strong>Такой перенос не поддерживается в автоматическом режиме</strong></p>
+<div>
+    <p>Напишите нам на SUPPORT@BIT-STROITELSTVO.RU какая конфигурация и версия сейчас используется.</p>
+    <p>Мы подберем оптимальный путь переноса данных.</p>
+</div>
 
 class LoadMyData extends Component {
     constructor(props) {
@@ -55,8 +58,10 @@ class LoadMyData extends Component {
                     <div className="row">
                         <div className="col-md-4">
                             <select className="form-control" onChange={this.onChange} defaultValue="buh3">
-                                <option value="buh3">Бухгалтерия, ред. 3.0</option>
-                                <option value="buh2">Бухгалтерия, ред. 2.0</option>
+                                <option value="buh3">1С:Бухгалтерия Предприятия, ред. 3.0</option>
+                                <option value="buh2">1С:Бухгалтерия Предприятия, ред. 2.0</option>
+                                <option value="str3">БИТ.СТРОИТЕЛЬСТВО, ред. 3.0</option>
+                                <option value="str2">БИТ.СТРОИТЕЛЬСТВО, ред. 2.0</option>
                                 <option value="other">Другая</option>
                             </select>
                         </div>
@@ -64,8 +69,8 @@ class LoadMyData extends Component {
                     <div className="row">
                         <div className="col-md-8">
                             <p></p>
-                            {this.state.config === "buh3" && <DataBuh3 />}
-                            {this.state.config === "buh2" && <DataBuh2 />}
+                            { (this.state.config === "buh3" || this.state.config === "str3") && <DataBuh3 />}
+                            { (this.state.config === "buh2" || this.state.config === "str2") && <DataBuh2 />}
                             {this.state.config === "other" && <DataOther />}
                         </div>
                     </div>

@@ -48,8 +48,8 @@ const initialState = {
 
 function reducer(state = initialState, action) {
 
-  console.log(JSON.stringify(action));
-  console.log(JSON.stringify(state));
+  //console.log(JSON.stringify(action));
+  //console.log(JSON.stringify(state));
   let newState = Object.assign({}, state);
   
   switch (action.type) {
@@ -81,7 +81,7 @@ function reducer(state = initialState, action) {
     default:
       break;
   }
-  console.log(JSON.stringify(newState));
+  //console.log(JSON.stringify(newState));
   return newState;
   
 }

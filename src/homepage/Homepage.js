@@ -62,7 +62,6 @@ const NoApps = () =>
     <div className="col-md-10">
         <p><strong>Еще нет ни одного приложения.</strong></p>
         <p>Для подключения перейдите в раздел <Link to="/tariffs">Настройки тарифов</Link>.</p>
-        <p>Там можно создать бесплатную тестовую базу и попробовать систему в действии.</p>
     </div>    
 </div>
 
@@ -97,7 +96,7 @@ const Information = () =>
         <div className="card">
             <div className="content">
                 <i className="fa fa-info-circle" aria-hidden="true"></i>
-                Можно использовать тонкий клиент вместо браузера. <a href="https://bitstroitelstvo.atlassian.net/wiki/spaces/365KB/pages/66191361/1">Перейти в базу знаний</a>
+                Можно использовать <strong>тонкий клиент</strong> вместо браузера. <a href="https://bitstroitelstvo.atlassian.net/wiki/spaces/365KB/pages/66191361/1">Перейти в базу знаний</a>
             </div>
         </div>
         </div>
