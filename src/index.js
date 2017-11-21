@@ -27,6 +27,7 @@ import EditMyTariff from './tariffs/MyTariffsEdit.js';
 import AddTariff from './tariffs/AddTariff.js';
 
 import Users from './Users.js';
+import PasswordChange from './users/PasswordChange.js';
 import Finance from './finance/Finance.js';
 
 
@@ -107,6 +108,7 @@ ReactDOM.render((
               <Route exact path="/tariffs/edit" component={EditMyTariff}/>
               <Route exact path="/tariffs/add" component={AddTariff}/>
               <Route exact path="/users" component={Users}/>
+              <Route exact path="/users/setpassword" component={PasswordChange}/>
               <Route exact path="/finance" component={Finance}/>
           </div>
         </EnsureLoggedInContainer>

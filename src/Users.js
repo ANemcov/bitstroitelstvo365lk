@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { Link } from 'react-router-dom';
 var axios = require('axios');
 
 const Container = (props) =>
@@ -76,7 +76,10 @@ const SingleUser = (props) =>
                 {props.data.Rights.map( (elem,index) => <span key={index}><i className="fa fa-angle-right" aria-hidden="true"></i>{elem.Name} - {elem.Right}<br /></span>)}
             </div>
             <div className="col-md-4">
-                <ActionBlockUnblock key={props.data.Id} id={props.data.Id} blocked={props.data.Blocked} onBlock={props.onBlock} onUnblock={props.onUnblock} />
+                <p><ActionBlockUnblock key={props.data.Id} id={props.data.Id} blocked={props.data.Blocked} onBlock={props.onBlock} onUnblock={props.onUnblock} /></p>
+                <p><Link to={{pathname: "/users/setpassword", username: props.data.Name, userid: props.data.Id}}><button className="btn btn-default">
+                    Изменить пароль
+                </button></Link></p>
             </div>
         </div>
     </div>
