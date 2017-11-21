@@ -43,7 +43,7 @@ const NewcustomerForm = (props) =>
                 <div className="col-md-12">
                     <div className="form-group">
                         <label>Электронная почта</label>
-                        <input type="email" className="form-control" placeholder="mail@mail.ru" aria-describedby="helpBlockMail" required pattern="[0-9a-zA-Z_\.]+@[0-9a-zA-Z_\.]+" onChange={props.onMailChange} />
+                        <input type="email" className="form-control" placeholder="mail@mail.ru" aria-describedby="helpBlockMail" required pattern="[0-9a-zA-Z_\.]+@[0-9a-zA-Z_\.]+" onChange={props.onMailChange} value={props.mail} />
                         <p id="helpBlockMail" className="help-block"><small>Почта будет использоваться для входа в систему</small></p>
                     </div>
                 </div>
@@ -124,6 +124,15 @@ class Newcustomer extends Component {
 
     }
 
+    componentDidMount() {
+        const params = new URLSearchParams(this.props.location.search);
+        const mail = params.get('mail');
+
+        if (mail != null) { 
+            this.setState({mail: mail});           
+        }
+    }
+
     render() {
         return (
             <Wrapper>
@@ -137,6 +146,7 @@ class Newcustomer extends Component {
                                 success={this.state.success}
                                 error={this.state.error}
                                 errorText={this.state.errorText}
+                                mail={this.state.mail}
                 />
              </Wrapper>);
     }
