@@ -91,7 +91,7 @@ window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render((
     <Provider store={store}>
-    <BrowserRouter basename="/lk2">
+    <BrowserRouter basename="/lk">
       <Switch>
         <Route exact path="/login" component={Login}/>
         <Route exact path="/restore" component={Restore}/>
