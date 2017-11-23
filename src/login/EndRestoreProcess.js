@@ -23,7 +23,7 @@ const SerPasswordForm = (props) =>
                 <div className="col-md-12">
                     <div className="form-group">
                         <label>Новый пароль</label>
-                        <input type="password" className="form-control" placeholder="новый пароль" aria-describedby="helpBlockPassword" required pattern="[0-9a-zA-Z!@#$%^*(){};:]{7,}" onChange={props.onPasswordChange} />
+                        <input type="password" className="form-control" placeholder="новый пароль" aria-describedby="helpBlockPassword" required pattern="[0-9a-zA-Z!@#$%^*(){};:\- ]{7,}" onChange={props.onPasswordChange} />
                         <p id="helpBlockPassword" className="help-block"><small>Не менее 7 символов: латинские буквы, цифры, спецсимволы</small></p>
                     </div>
                 </div>
@@ -32,7 +32,7 @@ const SerPasswordForm = (props) =>
                 <div className="col-md-12">
                     <div className="form-group">
                         <label>Новый пароль (повтор)</label>
-                        <input type="password" className="form-control" placeholder="новый пароль" required onChange={props.onPassword2Change} />
+                        <input type="password" className="form-control" placeholder="новый пароль" required pattern="[0-9a-zA-Z!@#$%^*(){};:\- ]{7,}" onChange={props.onPassword2Change} />
                     </div>
                 </div>
             </div>

@@ -53,7 +53,7 @@ const NewcustomerForm = (props) =>
                 <div className="col-md-12">
                     <div className="form-group">
                         <label>Пароль</label>
-                        <input type="password" className="form-control" aria-describedby="helpBlockPassword" required pattern="[0-9a-zA-Z!@#$%^*(){};:]{7,}" onChange={props.onPasswordChange} />
+                        <input type="password" className="form-control" aria-describedby="helpBlockPassword" required pattern="[0-9a-zA-Z!@#$%^*(){};:\- ]{7,}" onChange={props.onPasswordChange} />
                         <p id="helpBlockPassword" className="help-block"><small>Не менее 7 символов: латинские буквы, цифры, спецсимволы</small></p>
                     </div>
                 </div>
