@@ -76,7 +76,4 @@ const Modules = (props) =>
     )}
 </div>
 
-const ModuleSelected = (id, mymodules) => mymodules.filter(elem => id === elem.Id).length > 0;
-
-
 export default SingleTariffForm;
