@@ -27,9 +27,7 @@ const ActivationForm = (props) =>
 
             <div className="row">
                 <div className="col-md-12">
-                    <p className="text-center">
-                        <button type="submit" className="btn btn-success btn-fill" disabled={props.inProgress}>Завершить регистрацию</button><br />
-                    </p>
+                    {props.children}
                 </div>
             </div>
         </form>
@@ -37,36 +35,32 @@ const ActivationForm = (props) =>
 </div>
 
 const ActivationInProgress = (props) => 
-<div className="card">
-    <div className="content">
-        <div className="text-center"><i className="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>
-    </div>
+<div className="content">
+    <div className="text-center"><i className="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>
 </div>
 
 const ActivationSuccessful = (props) => 
-<div className="card">
-    <div className="content">
-        <p className="text-center text-success">
-            Активация прошла успешно
-        </p>
-        <p className="text-center">
-            <Link to="/login">
-                <button className="btn btn-success btn-fill">Войти в кабинет</button>
-            </Link>
-        </p>
-    </div>
+<div className="content">
+    <p className="text-center text-success">
+        <strong><i className="fa fa-check" aria-hidden="true"></i> Активация прошла успешно</strong>
+        <br />
+        <small>Теперь можно входить в личный кабинет с ранее введенными логином и паролем</small>
+    </p>
+    <p className="text-center">
+        <Link to="/login">
+            <button className="btn btn-success btn-fill">Войти в кабинет</button>
+        </Link>
+    </p>
 </div>
 
 const ActivationError = (props) => 
-<div className="card">
-    <div className="content">
-        <p className="text-center text-danger">
-            Произошла ошибка: {props.errorText}
-        </p>
-        <p>
-            Чтобы разобраться с ошибкой пришлите активационный код на почту <a href="mailto:support@bit-stroitelstvo.ru">support@bit-stroitelstvo.ru</a> с адреса, который был указан при регистрации.
-        </p>
-    </div>
+<div className="content">
+    <p className="text-center text-danger">
+        Произошла ошибка: {props.errorText}
+    </p>
+    <p>
+        Чтобы разобраться с ошибкой пришлите активационный код на почту <a href="mailto:support@bit-stroitelstvo.ru">support@bit-stroitelstvo.ru</a> с адреса, который был указан при регистрации.
+    </p>
 </div>
 
 class AccountActivation extends Component {
@@ -80,9 +74,6 @@ class AccountActivation extends Component {
             error: false,
             errorText: "Неверный код активации"
         }
-
-        this.onSubmit = this.onSubmit.bind(this);
-        this.onCodeChange = this.onCodeChange.bind(this);
     }
 
     componentDidMount() {
@@ -100,23 +91,21 @@ class AccountActivation extends Component {
             <Wrapper>
                 <ActivationForm onSubmit={this.onSubmit}
                                 onCodeChange={this.onCodeChange}
-                                code={this.state.code}
-                                inProgress={this.state.inProgress}
-                />
-                {this.state.inProgress ? <ActivationInProgress /> : null}
-                {this.state.success ? <ActivationSuccessful /> : null}
-                {this.state.error ? <ActivationError errorText={this.state.errorText} /> : null}
+                                code={this.state.code}>
+                    {(this.state.inProgress || this.state.success) ? null : <div className="text-center"><button type="submit" className="btn btn-success btn-fill" disabled={this.state.inProgress}>Завершить регистрацию</button></div>}
+                    {this.state.inProgress ? <ActivationInProgress /> : null}
+                    {this.state.success ? <ActivationSuccessful /> : null}
+                    {this.state.error ? <ActivationError errorText={this.state.errorText} /> : null}
+                </ActivationForm>
             </Wrapper>);
     }
 
-    onSubmit(e) {
+    onSubmit = (e) => {
         e.preventDefault();
         this.activate();
     }
 
-    onCodeChange(e) {
-        this.setState({code: e.target.value});
-    }
+    onCodeChange = (e) => { this.setState({code: e.target.value}); }
 
     activate() {
 
@@ -144,7 +133,6 @@ class AccountActivation extends Component {
             });
         });        
     }    
-
 }
 
 const mapStateToProps = (state) => {
@@ -152,7 +140,5 @@ const mapStateToProps = (state) => {
         basePublicURL: state.basePublicURL,
     };
 }
-
-
 
 export default connect(mapStateToProps)(AccountActivation);
