@@ -153,6 +153,11 @@ class AddTariff extends Component {
                     title: this.state.name,
                     timezone: this.state.timezone
                 })
+            },
+            headers: {
+                'Cache-Control': 'no-cache,no-store,must-revalidate,max-age=-1,private',
+                'Pragma': 'no-cache',
+                'Expires': '-1'
             }
         }
         ).then((response) => {

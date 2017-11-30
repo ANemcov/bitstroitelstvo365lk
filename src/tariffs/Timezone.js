@@ -30,7 +30,14 @@ class Timezone extends Component {
 
     getTimezones(props) {
         
-        axios.get(props.basePublicURL + '/timezones')
+        axios.get(props.basePublicURL + '/timezones',
+        {
+            headers: {
+                'Cache-Control': 'no-cache,no-store,must-revalidate,max-age=-1,private',
+                'Pragma': 'no-cache',
+                'Expires': '-1'
+            }
+        })
         .then((response) => {
             if (response.status === 200) {
 

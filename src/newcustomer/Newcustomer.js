@@ -174,6 +174,11 @@ class Newcustomer extends Component {
                 name: this.state.fullname,
                 password: this.state.password,
                 tel: this.state.phone
+            },
+            headers: {
+                'Cache-Control': 'no-cache,no-store,must-revalidate,max-age=-1,private',
+                'Pragma': 'no-cache',
+                'Expires': '-1'
             }
         }
         ).then((response) => {

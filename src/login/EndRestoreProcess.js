@@ -122,7 +122,14 @@ class EndRestoreProcess extends Component {
 
         this.setState({inProgress: true});
         
-        axios.get(this.props.basePublicURL + `/account/password/set/${this.state.code}/${this.state.password}`
+        axios.get(this.props.basePublicURL + `/account/password/set/${this.state.code}/${this.state.password}`,
+        {
+            headers: {
+                'Cache-Control': 'no-cache,no-store,must-revalidate,max-age=-1,private',
+                'Pragma': 'no-cache',
+                'Expires': '-1'
+            }
+        }
         ).then((response) => {
             this.setState({
                 inProgress: false,

@@ -137,6 +137,11 @@ class Login extends Component {
             auth: {
                 username: this.state.credentials.login,
                 password: this.state.credentials.password
+            },
+            headers: {
+                'Cache-Control': 'no-cache,no-store,must-revalidate,max-age=-1,private',
+                'Pragma': 'no-cache',
+                'Expires': '-1'
             }
         }
         ).then((response) => {

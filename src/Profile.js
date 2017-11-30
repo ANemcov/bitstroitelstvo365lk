@@ -96,6 +96,11 @@ class Profile extends Component {
                 auth: {
                     username: this.props.credentials.login,
                     password: this.props.credentials.password
+                },
+                headers: {
+                    'Cache-Control': 'no-cache,no-store,must-revalidate,max-age=-1,private',
+                    'Pragma': 'no-cache',
+                    'Expires': '-1'
                 }
             }
         ).then((response) => {
@@ -145,6 +150,11 @@ class Profile extends Component {
                     LegalName: this.state.LegalName,
                     MailingAddress: this.state.MailingAddress
                 }
+            },
+            headers: {
+                'Cache-Control': 'no-cache,no-store,must-revalidate,max-age=-1,private',
+                'Pragma': 'no-cache',
+                'Expires': '-1'
             }
         }
         ).then((response) => {

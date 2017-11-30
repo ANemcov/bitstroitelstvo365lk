@@ -37,6 +37,11 @@ class Price extends Component {
                     options: props.options,
                     nusers: props.nusers
                 }
+            },
+            headers: {
+                'Cache-Control': 'no-cache,no-store,must-revalidate,max-age=-1,private',
+                'Pragma': 'no-cache',
+                'Expires': '-1'
             }
         }).then((response) => {
             if (response.status === 200) {

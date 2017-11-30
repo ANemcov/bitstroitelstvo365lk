@@ -91,7 +91,14 @@ class BeginRestoreProcess extends Component {
         e.preventDefault();
         this.setState({inProgress: true});
         
-        axios.get(this.props.basePublicURL + '/account/password/restore/' + this.state.mail
+        axios.get(this.props.basePublicURL + '/account/password/restore/' + this.state.mail,
+        {
+            headers: {
+                'Cache-Control': 'no-cache,no-store,must-revalidate,max-age=-1,private',
+                'Pragma': 'no-cache',
+                'Expires': '-1'
+            }
+        }
         ).then((response) => {
             this.setState({
                 inProgress: false,

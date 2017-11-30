@@ -115,6 +115,11 @@ class Transactions extends Component {
                 params: {
                     from: this.state.dateFrom,
                     to: this.state.dateTo
+                },
+                headers: {
+                    'Cache-Control': 'no-cache,no-store,must-revalidate,max-age=-1,private',
+                    'Pragma': 'no-cache',
+                    'Expires': '-1'
                 }
             }
         ).then((response) => {
