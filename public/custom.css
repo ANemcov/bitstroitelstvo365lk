@@ -21,3 +21,14 @@
     margin-left: 5px;
     margin-right: 5px;
 }
+
+.global-alert-top-right {
+  z-index: 10301;
+  position: fixed;
+  padding-top: 6px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-bottom: 6px;
+  top: 0;
+  right: 0;
+}

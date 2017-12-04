@@ -10,7 +10,8 @@ class CreateTestBase extends Component {
         this.state = {
             available: true,
             inProgress: false,
-            success: false
+            success: false,
+            showNotification: false
         };
     }
     
@@ -22,9 +23,12 @@ class CreateTestBase extends Component {
                 <div className="text-center" style={{ width: "100%", left: 0, bottom: 30, position: "absolute"}}>
                     {this.state.success ? <strong className="text-success"><i className="fa fa-check" aria-hidden="true"></i> База создана</strong> : <button className="btn btn-success btn-fill" onClick={this.createbase} disabled={this.state.inProgress || !this.state.available}>Создать тестовую базу</button>}
                 </div>
+                {this.state.showNotification ? <Notification onClose={this.closeNotification} /> : null}
             </div>
         );
     }
+
+    closeNotification = () => this.setState({showNotification: false})
 
     createbase = () => {
         this.setState({inProgress: true});
@@ -46,13 +50,23 @@ class CreateTestBase extends Component {
                 this.setState({
                     available: false, 
                     inProgress: false,
-                    success: true
+                    success: true,
+                    showNotification: true
                 });
                 this.props.onCreate();
             }
         });
     }
 }
+
+const Notification = (props) => 
+<div className="global-alert-top-right">
+    <div className="alert alert-warning alert-with-icon">
+        <button type="button" aria-hidden="true" className="close" onClick={props.onClose}>×</button>
+        <span data-notify="icon" className="pe-7s-bell"></span>
+        <span><strong>База создана. В списке приложений появилась ссылка для входа в базу</strong></span>
+    </div>
+</div>
     
 const mapStateToProps = (state) => {
     return {
