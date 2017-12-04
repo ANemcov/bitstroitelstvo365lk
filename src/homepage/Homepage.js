@@ -75,15 +75,12 @@ const SingleApp = (props) =>
             <div className="col-md-4">
                 {props.app.ConfigName + " версии " + props.app.ConfigVersionName}
             </div>
-            <div className="col-md-2">
+            <div className="col-md-5">
                 {props.app.Status}
+                {props.app.URL && <span> ( <a href={props.app.URLWithCredentials} target="_blank">{props.app.URL}</a> )</span>}
             </div>
-            <div className="col-md-6">
-                {props.app.URL && <span>Перейти в приложение: <a href={props.app.URLWithCredentials} target="_blank">
-                <strong>{props.app.URL}</strong>
-                </a>
-                </span>
-                }
+            <div className="col-md-3 text-center">
+                {props.app.URL && <a href={props.app.URLWithCredentials} target="_blank" className="btn btn-success btn-sm btn-fill"><strong>Начать работу в базе</strong></a>}
             </div>
         </div>
     </div>
