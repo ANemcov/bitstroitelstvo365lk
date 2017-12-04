@@ -23,7 +23,7 @@ class Price extends Component {
 
     render() {
         return(
-            this.state.isFetching ? null : <span>{this.state.price}</span> 
+            this.state.isFetching ? null : <span>{this.state.price.toLocaleString('ru-RU')}</span> 
         );
     }
 

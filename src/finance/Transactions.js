@@ -32,18 +32,18 @@ const DataScreen = (props) =>
         <tbody>
             <tr className="active">
                 <td>На начало периода</td>
-                <td colSpan={2} className="text-center">{props.data.startingbalance.amount}</td>
+                <td colSpan={2} className="text-center">{props.data.startingbalance.amount.toLocaleString('ru-RU')}</td>
             </tr>
             {props.data.transactions.map(elem => 
                 <tr>
                     <td>{elem.description}</td>
-                    <td>{elem.accrual > 0 ? elem.accrual : ""}</td>
-                    <td>{elem.writeoff > 0 ? elem.writeoff : ""}</td>
+                    <td>{elem.accrual > 0 ? elem.accrual.toLocaleString('ru-RU') : ""}</td>
+                    <td>{elem.writeoff > 0 ? elem.writeoff.toLocaleString('ru-RU') : ""}</td>
                 </tr>
             )}
             <tr className="active">
                 <td>На конец периода</td>
-                <td colSpan={2} className="text-center">{props.data.endingbalance.amount}</td>
+                <td colSpan={2} className="text-center">{props.data.endingbalance.amount.toLocaleString('ru-RU')}</td>
             </tr>
         </tbody>
     </table>

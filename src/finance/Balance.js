@@ -21,7 +21,7 @@ const LoadingScreen = () =>
 
 const DataScreen = (props) => 
 <p>
-    <h4><strong>Баланс: {props.balance} руб.</strong></h4>
+    <h4><strong>Баланс: {props.balance.toLocaleString('ru-RU')} руб.</strong></h4>
     Следующее списание: {props.nextWriteoffDate}
 </p>
 

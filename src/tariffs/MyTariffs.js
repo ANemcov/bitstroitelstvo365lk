@@ -47,7 +47,7 @@ const SingleTariff = (props) =>
                 Одновременных подключений: {props.tariff.Nusers}
             </div>
             <div className="col-md-2">
-                {props.tariff.Cost} руб. в {props.tariff.Tariff.Periodicity.toLowerCase()}                
+                {props.tariff.Cost.toLocaleString('ru-RU')} руб. в {props.tariff.Tariff.Periodicity.toLowerCase()}                
             </div>
             <div className="col-md-2">
                 <Link to={{pathname: "/tariffs/edit", state: {tariff: props.tariff}}}>
