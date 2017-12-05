@@ -23,8 +23,9 @@ import LoadMyData from './homepage/LoadMyData.js';
 import Profile from './Profile.js';
 
 import Tariffs from './tariffs/Tariffs.js';
-import EditMyTariff from './tariffs/MyTariffsEdit.js';
 import AddTariff from './tariffs/AddTariff.js';
+import EditMyTariff from './tariffs/MyTariffsEdit.js';
+import StopMyTariff from './tariffs/MyTariffsStop.js';
 
 import Users from './Users.js';
 import PasswordChange from './users/PasswordChange.js';
@@ -105,8 +106,9 @@ ReactDOM.render((
               <Route exact path="/loadmydata" component={LoadMyData}/>
               <Route exact path="/profile" component={Profile}/>
               <Route exact path="/tariffs" component={Tariffs}/>
-              <Route exact path="/tariffs/edit" component={EditMyTariff}/>
               <Route exact path="/tariffs/add" component={AddTariff}/>
+              <Route exact path="/tariffs/edit" component={EditMyTariff}/>
+              <Route exact path="/tariffs/stop" component={StopMyTariff}/>
               <Route exact path="/users" component={Users}/>
               <Route exact path="/users/setpassword" component={PasswordChange}/>
               <Route exact path="/finance" component={Finance}/>

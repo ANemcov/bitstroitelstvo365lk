@@ -31,7 +31,7 @@ const SingleTariffForm = (props) =>
         <div className="col-md-12">
             <div className="form-group">
                 <label>Часовой пояс</label>
-                <Timezone onChange={props.onTimezoneChange} />
+                <Timezone onChange={props.onTimezoneChange} value={props.mytariff ? props.mytariff.App.Timezone : undefined} />
             </div>
         </div>
     </div>
@@ -67,13 +67,21 @@ const SingleTariffForm = (props) =>
 const Modules = (props) =>
 <div className="form-group">
     <label>Модули</label>
-    {props.tariff.Modules.map(elem => 
+    {props.mytariff ?
+        props.tariff.Modules.map(elem => 
         <div key={elem.Id}>
             <label>
-                <input type="checkbox" name={elem.Id} defaultChecked={elem.Mandatory} disabled={elem.Mandatory} onChange={props.onModuleChange} /> {elem.Name} {elem.Mandatory ? "(обязательный)" : null}
+                <input type="checkbox" name={elem.Id} defaultChecked={props.mytariff.Modules.filter(myelem => myelem.Id === elem.Id).reduce( (prev, curr) => prev || curr, false )} disabled={elem.Mandatory} onChange={props.onModuleChange}/> {elem.Name} {elem.Mandatory ? "(обязательный)" : null}
             </label>
-        </div>                
-    )}
+        </div>)
+        :
+        props.tariff.Modules.map(elem => 
+            <div key={elem.Id}>
+                <label>
+                    <input type="checkbox" name={elem.Id} defaultChecked={elem.Mandatory} disabled={elem.Mandatory} onChange={props.onModuleChange}/> {elem.Name} {elem.Mandatory ? "(обязательный)" : null}
+                </label>
+            </div>)                       
+    }
 </div>
 
 export default SingleTariffForm;

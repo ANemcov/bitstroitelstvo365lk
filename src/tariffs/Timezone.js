@@ -22,7 +22,7 @@ class Timezone extends Component {
 
     render() {
         return(
-            <select className="form-control" onChange={this.props.onChange} defaultValue="Europe/Moscow">
+            <select className="form-control" onChange={this.props.onChange} defaultValue={this.props.value ? this.props.value : "Europe/Moscow"}>
                {this.state.allzones.map((elem,index) => <option key={index} value={elem.key}>{elem.value}</option>)}
             </select>
         );

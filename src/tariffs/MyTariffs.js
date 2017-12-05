@@ -50,9 +50,11 @@ const SingleTariff = (props) =>
                 {props.tariff.Cost.toLocaleString('ru-RU')} руб. в {props.tariff.Tariff.Periodicity.toLowerCase()}                
             </div>
             <div className="col-md-2">
-                <Link to={{pathname: "/tariffs/edit", state: {tariff: props.tariff}}}>
-                    <button className="btn btn-warning" disabled>Изменить</button>
+                {!props.tariff.Canceled &&
+                <Link to={{pathname: "/tariffs/edit", state: {mytariff: props.tariff}}}>
+                    <button className="btn btn-warning btn-sm">Изменить</button>
                 </Link>
+                }
             </div>
         </div>
     </div>

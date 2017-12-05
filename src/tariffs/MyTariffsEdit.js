@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import SingleTariffForm from './SingleTariffForm.js';
 import Price from './Price.js';
 var axios = require('axios');
@@ -30,14 +30,14 @@ class EditMyTariff extends Component {
         super(props);
     
         this.state = {
-            mytariff: this.props.location.mytariff,
+            mytariff: this.props.location.state.mytariff,
             tariff: undefined,
             isFetching: true,
-            nusers: this.props.location.mytariff.Nusers,
-            modules: this.props.location.mytariff.Modules.map(elem => elem.Id),
-            options: [],
-            name : "",
-            timezone: "",
+            nusers: this.props.location.state.mytariff.Nusers,
+            modules: this.props.location.state.mytariff.Modules.map(elem => elem.Id),
+            options: this.props.location.state.mytariff.Options.map(elem => elem.Id),
+            name : this.props.location.state.mytariff.App.Name,
+            timezone: this.props.location.state.mytariff.App.Timezone,
             inProgress: false,
             success: false,
             error: false,
@@ -85,18 +85,27 @@ class EditMyTariff extends Component {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="text-center"><p>
-                                Цена: <Price id={this.state.mytariff.TariffId} modules={this.state.modules} options={this.state.options} nusers={this.state.nusers} /> руб. за {this.state.mytariff.Tariff.Periodicity.toLowerCase()}
+                                Цена: <Price id={this.state.mytariff.Tariff.Id} modules={this.state.modules} options={this.state.options} nusers={this.state.nusers} /> руб. за {this.state.mytariff.Tariff.Periodicity.toLowerCase()}
                             </p></div>
                         </div>
                     </div>
 
                     <div className="row">
-                        <div className="col-md-6">
+                        <div className="col-md-12">
                             <Link to="/tariffs">
                                 <button className="btn btn-warning btn-fill"><i className="fa fa-arrow-circle-left"></i> Назад</button>
                             </Link>
-                            <button className="btn btn-success btn-fill pull-right" disabled><i className="fa fa-floppy-o"></i> Сохранить</button>
-                            <button className="btn btn-danger btn-fill pull-right" disabled><i className="fa fa-ban"></i> Отключить</button>
+                            {this.state.inProgress && <ModifyInProgress />}
+                            {this.state.success && <ModifySuccessful />}
+                            {this.state.error && <ModifyError errorText={this.state.errorText} />}
+                            {(!this.state.error && !this.state.inProgress && !this.state.success) &&
+                            <span>
+                                <button className="btn btn-success btn-fill pull-right" onClick={this.modifyTariff}><i className="fa fa-floppy-o"></i> Сохранить</button>
+                                <Link to={{pathname: "/tariffs/stop", state: {mytariff: this.state.mytariff}}}>
+                                    <button className="btn btn-danger btn-fill pull-right"><i className="fa fa-ban"></i> Отключить</button>
+                                </Link>
+                            </span>
+                            }
                         </div>
                     </div>
                 </div>
@@ -131,7 +140,7 @@ class EditMyTariff extends Component {
         this.setState({inProgress: true});
         
 
-        axios.get(this.props.basePrivateURL + `/mytariffs/${this.state.tariff.TariffId}/add`,
+        axios.get(this.props.basePrivateURL + `/mytariffs/${this.state.mytariff.Tariff.Id}/${this.state.mytariff.App.Id}/modify`,
         {
             auth: {
                 username: this.props.credentials.login,
@@ -141,9 +150,7 @@ class EditMyTariff extends Component {
                 data: JSON.stringify({
                     modules: this.state.modules,
                     options: this.state.options,
-                    nusers: this.state.nusers,
-                    title: this.state.name,
-                    timezone: this.state.timezone
+                    nusers: this.state.nusers
                 })
             },
             headers: {
@@ -195,6 +202,29 @@ class EditMyTariff extends Component {
     }    
 }
 
+const ModifyInProgress = (props) => 
+<div className="text-center">
+    <i className="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+</div>
+
+
+const ModifySuccessful = (props) => 
+<div className="text-center">
+    <p className="text-success"><strong>
+        <i className="fa fa-check" aria-hidden="true"></i> Тариф изменен
+    </strong></p>
+</div>
+
+const ModifyError = (props) => 
+<div className="text-center">
+    <p className="text-danger"><strong>
+        Произошла ошибка: {props.errorText}
+    </strong></p>
+    <p>
+        Чтобы разобраться с ошибкой напишите нам на почту <a href="mailto:support@bit-stroitelstvo.ru">support@bit-stroitelstvo.ru</a> с адреса, который был указан при регистрации.
+    </p>
+</div>
+
 const mapStateToProps = (state) => {
     return {
         basePublicURL: state.basePublicURL,
@@ -202,6 +232,5 @@ const mapStateToProps = (state) => {
         credentials: state.credentials
     };
 }
-
 
 export default connect(mapStateToProps)(EditMyTariff);
