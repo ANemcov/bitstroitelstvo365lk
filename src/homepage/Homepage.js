@@ -42,7 +42,7 @@ const DataScreen = (props) =>
             </div>
             <div className="content">
                 { props.apps.length === 0 ? <NoApps /> :
-                    props.apps.map(app => <SingleApp app={app} key={app.Id} />)}
+                    props.apps.filter(app => app.StatusId !== 'deleted').map(app => <SingleApp app={app} key={app.Id} />)}
                 <div>
                     <button className="btn btn-default" onClick={props.refresh}>
                         <i className="fa fa-refresh" aria-hidden="true"></i>
