@@ -116,6 +116,7 @@ class Newcustomer extends Component {
             phone: "",
             mail: "",
             password: "",
+            source: "",
             inProgress: false,
             success: false,
             error: false,
@@ -126,11 +127,18 @@ class Newcustomer extends Component {
 
     componentDidMount() {
         const params = new URLSearchParams(this.props.location.search);
+        
         const mail = params.get('mail');
-
         if (mail != null) { 
             this.setState({mail: mail});           
         }
+
+        const source = params.get('from');
+        if (source != null) { 
+            this.setState({source: source});           
+        }
+
+
     }
 
     render() {
@@ -173,7 +181,8 @@ class Newcustomer extends Component {
                 mail: this.state.mail,
                 name: this.state.fullname,
                 password: this.state.password,
-                tel: this.state.phone
+                tel: this.state.phone,
+                source: this.state.source
             },
             headers: {
                 'Cache-Control': 'no-cache,no-store,must-revalidate,max-age=-1,private',
