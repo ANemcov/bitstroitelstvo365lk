@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 var axios = require('axios');
 
-const SerPasswordForm = (props) => 
+const SetPasswordForm = (props) => 
 <div className="card">
     <div className="header">
         <h4 className="title text-center">Изменение пароля</h4>
@@ -38,10 +39,10 @@ const SerPasswordForm = (props) =>
             </div>
             <div className="row">
                 <div className="col-md-12 text-center">
-                    <button type="submit" className="btn btn-success btn-fill" disabled={props.inProgress}>Установить пароль</button>
-                    {props.inProgress ? <ResetInProgress /> : null}
-                    {props.success ? <ResetSuccessful /> : null}
-                    {props.error ? <ResetError errorText={props.errorText} /> : null}
+                    {(!props.success && !props.inProgress) && <button type="submit" className="btn btn-success btn-fill" disabled={props.inProgress}>Установить пароль</button>}
+                    {props.inProgress && <ResetInProgress />}
+                    {props.success && <ResetSuccessful />}
+                    {props.error && <ResetError errorText={props.errorText} />}
                 </div>
             </div>
         </form>
@@ -54,11 +55,18 @@ const ResetInProgress = (props) =>
 </div>
 
 const ResetSuccessful = (props) => 
-<p className="content text-center text-success">
-    <strong>
-        <i className="fa fa-check" aria-hidden="true"></i> Пароль будет изменен в течение 1 минуты
-    </strong>
-</p>
+<div>
+    <p className="content text-center text-success">
+        <strong>
+            <i className="fa fa-check" aria-hidden="true"></i> Пароль будет изменен в течение 1 минуты
+        </strong>
+    </p>
+    <p className="content text-center text-success">
+        <Link to="/login">
+            <button className="btn btn-success">Вход в Личный кабинет</button>
+        </Link>
+    </p>
+</div>
 
 const ResetError = (props) => 
 <div className="content">
@@ -96,7 +104,7 @@ class EndRestoreProcess extends Component {
     
     render() {
         return (
-                <SerPasswordForm onSubmit={this.onSubmit}
+                <SetPasswordForm onSubmit={this.onSubmit}
                                 onCodeChange={this.onCodeChange}
                                 onPasswordChange={this.onPasswordChange}
                                 onPassword2Change={this.onPassword2Change}                                
