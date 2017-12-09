@@ -166,6 +166,11 @@ class Login extends Component {
                         type: "LOGIN_ERROR",
                         text: "Указаны неверные данные для входа"
                     });
+                } else if (error.response.status === 403) {
+                    this.props.dispatch({
+                        type: "LOGIN_ERROR",
+                        text: "Вход в личный кабинет не предусмотрен для этого пользователя"
+                    });                    
                 } else {
                     this.props.dispatch({
                         type: "LOGIN_ERROR",
