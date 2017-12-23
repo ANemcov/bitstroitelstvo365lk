@@ -44,10 +44,7 @@ class GetInvoice extends Component {
                     <div className="col-md-2">
                         <div className="form-group">
                             <label>Сумма</label>
-                            <div className="input-group">
-                                <input type="number" className="form-control" onChange={this.onAmountChange} />
-                                <div className="input-group-addon">.00</div>
-                            </div>
+                            <input type="number" className="form-control" onChange={this.onAmountChange} pattern="[0-9]+" />
                         </div>
                     </div>
 
