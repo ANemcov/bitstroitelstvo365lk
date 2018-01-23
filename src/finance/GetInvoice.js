@@ -30,7 +30,7 @@ class GetInvoice extends Component {
         return(<div>
             <div className="row">
                 <div className="col-md-8">
-                    <h4>Самостоятельное получение счета на оплату</h4>
+                    <h4>Выставление счета на оплату</h4>
                 </div>
             </div>
             <form onSubmit={this.onSubmit}>
@@ -63,6 +63,12 @@ class GetInvoice extends Component {
                     </div>
                 </div>
             </form>
+            <div className="row">
+                <div className="col-md-8">
+                    <h4>Скачать текст договора (оферты): <a href="https://365.bit-stroitelstvo.ru/oferta.pdf" target="_blank" rel="noopener noreferrer">oferta.pdf</a></h4>
+                </div>
+            </div>
+            
 
             
         </div>);
