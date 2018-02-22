@@ -123,7 +123,7 @@ const Welcome = (props) =>
 
         <div className="col-md-4" style={{height: 180}}>
             <div className="card" style={{height: 160}}>
-                <CreateTestBase onCreate={props.getApplications}/>
+                <CreateTestBase onCreate={props.getApplications} apps={props.apps}/>
             </div>
         </div>
 
@@ -161,7 +161,7 @@ class Homepage extends Component {
     render() {
         return(
             <Container>
-                <Welcome getApplications={this.getApplications} />
+                <Welcome getApplications={this.getApplications} apps={this.state.applications} />
                 {this.state.isFetching ? <LoadingScreen /> : <DataScreen apps={this.state.applications} refresh={this.getApplications} />}
                 <Information />
             </Container>

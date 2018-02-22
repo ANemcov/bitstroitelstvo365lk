@@ -16,12 +16,14 @@ class CreateTestBase extends Component {
     }
     
     render() {
+        let alreadyHaveBase = this.props.apps.filter(app => app.StatusId !== 'deleted').length;
+
         return(
             <div className="content">
                 <p className="text-center">Создать бесплатную тестовую базу с полным функционалом</p>
                 <p className="text-center"><small>на 15 дней</small></p>
                 <div className="text-center" style={{ width: "100%", left: 0, bottom: 30, position: "absolute"}}>
-                    {this.state.success ? <strong className="text-success"><i className="fa fa-check" aria-hidden="true"></i> База создана</strong> : <button className="btn btn-success btn-fill" onClick={this.createbase} disabled={this.state.inProgress || !this.state.available}>Создать тестовую базу</button>}
+                    {this.state.success || alreadyHaveBase ? <strong className="text-success"><i className="fa fa-check" aria-hidden="true"></i> База создана</strong> : <button className="btn btn-success btn-fill" onClick={this.createbase} disabled={this.state.inProgress || !this.state.available}>Создать тестовую базу</button>}
                 </div>
                 {this.state.showNotification ? <Notification onClose={this.closeNotification} /> : null}
             </div>
