@@ -43,7 +43,7 @@ const NewcustomerForm = (props) =>
                 <div className="col-md-12">
                     <div className="form-group">
                         <label>Электронная почта</label>
-                        <input type="email" className="form-control" placeholder="mail@mail.ru" aria-describedby="helpBlockMail" required pattern="[0-9a-zA-Z_\.]+@[0-9a-zA-Z_\.]+" onChange={props.onMailChange} value={props.mail} />
+                        <input type="email" className="form-control" placeholder="mail@mail.ru" aria-describedby="helpBlockMail" required pattern="[0-9a-zA-Z_\.-]+@[0-9a-zA-Z_\.-]+" onChange={props.onMailChange} value={props.mail} />
                         <p id="helpBlockMail" className="help-block"><small>Почта будет использоваться для входа в систему</small></p>
                     </div>
                 </div>
