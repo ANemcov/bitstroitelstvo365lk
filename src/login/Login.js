@@ -69,7 +69,7 @@ const NewUserInfo = () =>
                         <button className="btn btn-success">Регистрация</button>
                     </Link>                    
                 </p>
-                <p className="text-center">Можем помочь по телефону <strong>+7 (812) 677-01-77</strong></p>
+                <p className="text-center">Можем помочь по телефону <strong>+7 (812) 677 02 77</strong></p>
             </div>
         </div>
     </div>
