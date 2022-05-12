@@ -30,7 +30,7 @@ class Sidebar extends Component {
         <div className="sidebar" data-color="purple">
             <div className="sidebar-wrapper">
                 <div className="logo">
-                    <a href="http://alexanderkiskin.pro" className="simple-text">
+                    <a href="https://365.bit-stroitelstvo.ru/lk" className="simple-text">
                         БИТ.СТРОИТЕЛЬСТВО 365
                     </a>
                 </div>
