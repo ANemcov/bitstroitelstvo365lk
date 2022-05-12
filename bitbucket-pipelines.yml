@@ -3,7 +3,7 @@
 #  This template allows you to validate your NodeJS code.
 #  The workflow allows running tests and code linting on the default branch.
 
-image: node:8.17
+image: node:16
 
 pipelines:
   default:
@@ -15,10 +15,4 @@ pipelines:
             script:
               - npm install
               - npm test
-        - step:
-            name: Code linting
-            script:
-              - npm install eslint
-              - npx eslint .
-            caches:
-              - node
+              - npm build
