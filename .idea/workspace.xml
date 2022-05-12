@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4eba5e7e-afba-4a3c-ab93-fbdb25c41965" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +86,7 @@
       <workItem from="1652302914946" duration="1066000" />
       <workItem from="1652340400791" duration="460000" />
       <workItem from="1652340967972" duration="6137000" />
-      <workItem from="1652350164996" duration="999000" />
+      <workItem from="1652350164996" duration="1288000" />
     </task>
     <task id="LOCAL-00001" summary="New feature branch">
       <created>1652299643245</created>
