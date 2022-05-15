@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
+import { Link, withRouter } from 'react-router-dom';
+// import { withRouter } from 'react-router';
 
 class NavLink extends Link {
     render() {
@@ -30,7 +30,7 @@ class Sidebar extends Component {
         <div className="sidebar" data-color="purple">
             <div className="sidebar-wrapper">
                 <div className="logo">
-                    <a href="http://alexanderkiskin.pro" className="simple-text">
+                    <a href="https://365.bit-stroitelstvo.ru/lk" className="simple-text">
                         БИТ.СТРОИТЕЛЬСТВО 365
                     </a>
                 </div>
@@ -38,41 +38,41 @@ class Sidebar extends Component {
                 <ul className="nav">
 
                     <NavLink to="/">
-                        <i className="pe-7s-home"></i>
+                        <i className="pe-7s-home"/>
                         <p>Приложения</p>
                     </NavLink>
 
                     <NavLink to="/tariffs">
-                        <i className="pe-7s-edit"></i>
+                        <i className="pe-7s-edit"/>
                         <p>Настройки тарифов</p>
                     </NavLink>
 
                     <NavLink to="/users">
-                        <i className="pe-7s-users"></i>
+                        <i className="pe-7s-users"/>
                         <p>Пользователи</p>
                     </NavLink>
 
                     <NavLink to="/profile">
-                        <i className="pe-7s-id"></i>
+                        <i className="pe-7s-id"/>
                         <p>Реквизиты компании</p>
                     </NavLink>
                     
                     <NavLink to="/finance">
-                        <i className="pe-7s-cash"></i>
+                        <i className="pe-7s-cash"/>
                         <p>Финансы</p>
                     </NavLink>
 
                     <li onClick={this.handleLogout}>
                         <Link to="/login">
-                            <i className="fa fa-power-off"></i>
+                            <i className="fa fa-power-off"/>
                             <p>Выход</p>
                         </Link>
                     </li>
 
                     <li className="active-pro">
                         <p>По вопросам обращайтесь:<br />
-                        <i className="fa fa-angle-right" aria-hidden="true"></i> support@bit-stroitelstvo.ru<br />
-                        <i className="fa fa-angle-right" aria-hidden="true"></i> по телефону +7 (812) 677 02 77</p>
+                        <i className="fa fa-angle-right" aria-hidden="true"/> support@bit-stroitelstvo.ru<br />
+                        <i className="fa fa-angle-right" aria-hidden="true"/> по телефону +7 (812) 677 02 77</p>
                     </li>
 
                 </ul>
