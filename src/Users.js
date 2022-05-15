@@ -50,7 +50,7 @@ const Information = () =>
         <div className="card">
             <div className="content">
                 <i className="fa fa-info-circle" aria-hidden="true"></i>
-                Новые пользователи создаются непосредственно в приложении: <a href="https://bitstroitelstvo.atlassian.net/wiki/spaces/365KB/pages/75890724/.+365" target="_blank" rel="noopener noreferrer">перейти в базу знаний</a> или посмотреть <a href="https://www.youtube.com/watch?v=Bq12bNJUBs4" target="_blank" rel="noopener noreferrer">видео про добавление пользователей</a>.
+                Новые пользователи создаются непосредственно в приложении: <a href="https://bitstroitelstvo.getcourse.ru/dobavleniepolzovatelya" target="_blank" rel="noopener noreferrer">перейти в базу знаний</a> или посмотреть <a href="https://www.youtube.com/watch?v=Bq12bNJUBs4" target="_blank" rel="noopener noreferrer">видео про добавление пользователей</a>.
             </div>
         </div>
     </div>
