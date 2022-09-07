@@ -50,7 +50,7 @@ class GetInvoice extends Component {
 
                     <div className="col-md-2 flex-bottom">
                         <div className="form-group">
-                            <button type="submit" className="btn btn-success btn-fill"><i className="fa fa-envelope-o"></i> Получить</button>
+                            {/*<button type="submit" className="btn btn-success btn-fill"><i className="fa fa-envelope-o"/> Получить</button>*/}
                         </div>
                     </div>
                 </div>
