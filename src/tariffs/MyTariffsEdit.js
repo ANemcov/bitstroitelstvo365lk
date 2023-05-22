@@ -22,10 +22,11 @@ const Wrapper = (props) =>
 
 const LoadingScreen = () => 
 <div className="text-center">
-    <i className="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+    <i className="fa fa-refresh fa-spin fa-3x fa-fw"/>
 </div>
 
 class EditMyTariff extends Component {
+
     constructor(props) {
         super(props);
     
@@ -93,16 +94,16 @@ class EditMyTariff extends Component {
                     <div className="row">
                         <div className="col-md-12">
                             <Link to="/tariffs">
-                                <button className="btn btn-warning btn-fill"><i className="fa fa-arrow-circle-left"></i> Назад</button>
+                                <button className="btn btn-warning btn-fill"><i className="fa fa-arrow-circle-left"/> Назад</button>
                             </Link>
                             {this.state.inProgress && <ModifyInProgress />}
                             {this.state.success && <ModifySuccessful />}
                             {this.state.error && <ModifyError errorText={this.state.errorText} />}
                             {(!this.state.error && !this.state.inProgress && !this.state.success) &&
                             <span>
-                                <button className="btn btn-success btn-fill pull-right" onClick={this.modifyTariff}><i className="fa fa-floppy-o"></i> Сохранить</button>
+                                <button className="btn btn-success btn-fill pull-right" onClick={this.modifyTariff}><i className="fa fa-floppy-o"/> Сохранить</button>
                                 <Link to={{pathname: "/tariffs/stop", state: {mytariff: this.state.mytariff}}}>
-                                    <button className="btn btn-danger btn-fill pull-right"><i className="fa fa-ban"></i> Отключить</button>
+                                    <button className="btn btn-danger btn-fill pull-right"><i className="fa fa-ban"/> Отключить</button>
                                 </Link>
                             </span>
                             }
@@ -113,18 +114,26 @@ class EditMyTariff extends Component {
                 }
                 <div className="col-md-6">
                     <h4>Частые вопросы</h4>
-                    <p><i className="fa fa-angle-right" aria-hidden="true"></i> Цена указана без НДС (услуга не облагается НДС), в рублях РФ.</p>
-                    <p><i className="fa fa-angle-right" aria-hidden="true"></i> Актирование производится последним днем каждого календарного квартала. По запросу акт высылается почтой, либо через ЭДО (с подписью - ЭЦП).</p>
+                    <p><i className="fa fa-angle-right" aria-hidden="true"/> Цена указана без НДС (услуга не облагается НДС), в рублях РФ.</p>
+                    <p><i className="fa fa-angle-right" aria-hidden="true"/> Актирование производится последним днем каждого календарного квартала. По запросу акт высылается почтой, либо через ЭДО (с подписью - ЭЦП).</p>
                 </div>
             </div></Wrapper>
         );
     }
 
-    onUsersChange = (e) => {this.setState({nusers: e.target.value})}
+    onUsersChange = (e) => {
+        if (e.target.value > this.state.tariff.MaxAmountOfLicenses) {
+            e.target.value = this.state.tariff.MaxAmountOfLicenses;
+        }
+        if (e.target.value < this.state.tariff.MinAmountOfLicenses) {
+            e.target.value = this.state.tariff.MinAmountOfLicenses;
+        }
+        this.setState({nusers: e.target.value})
+    }
     onNameChange = (e) => {this.setState({name: e.target.value})}
     onTimezoneChange = (e) => {this.setState({timezone: e.target.value})}
     onModuleChange = (e) => {
-        let modules = [];
+        let modules;
         if (e.target.checked) {
             modules = this.state.modules.concat(e.target.name);
         } else {
@@ -204,14 +213,13 @@ class EditMyTariff extends Component {
 
 const ModifyInProgress = (props) => 
 <div className="text-center">
-    <i className="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+    <i className="fa fa-refresh fa-spin fa-3x fa-fw"/>
 </div>
-
 
 const ModifySuccessful = (props) => 
 <div className="text-center">
     <p className="text-success"><strong>
-        <i className="fa fa-check" aria-hidden="true"></i> Тариф изменен
+        <i className="fa fa-check" aria-hidden="true"/> Тариф изменен
     </strong></p>
 </div>
 
