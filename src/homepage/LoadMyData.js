@@ -25,7 +25,7 @@ const DataScreen = (props) =>
 
 const DataBuh3 = () =>
 <div>
-    <p>1. Выгрузите данные из базы через "Администрирование → Сервис → Выгрузить данные для перехода в сервис" (<a href="https://bitstroitelstvo.getcourse.ru/casebyhgalterskiiuchet" target="_blank" rel="noopener noreferrer">инструкция</a>)</p>
+    <p>1. Выгрузите данные из базы через "Администрирование → Сервис → Выгрузить данные для перехода в сервис" (<a href="https://bitstroitelstvo.getcourse.ru/zagruzkadannyhvservis" target="_blank" rel="noopener noreferrer">инструкция</a>)</p>
     <p>2. Пришлите полученный ZIP файл на почту SUPPORT@BIT-STROITELSTVO.RU с того адреса, который был указан при регистрации.</p>
     <p>3. Процесс загрузки (с учетом возможного обновления конфигурации) может занять до суток.</p>
 </div>
