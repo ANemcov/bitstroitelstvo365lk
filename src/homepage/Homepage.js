@@ -82,6 +82,7 @@ const SingleApp = (props) =>
             <div className="col-md-3 text-center">
                 {props.app.URL && <a href={props.app.URLWithCredentials} target="_blank" className="btn btn-success btn-sm btn-fill"><strong>Начать работу в базе</strong></a>}
             </div>
+            {/*TODO добавить проверку прав и сделать отображение кнопки завершения сеансов*/}
         </div>
     </div>
 </div>
