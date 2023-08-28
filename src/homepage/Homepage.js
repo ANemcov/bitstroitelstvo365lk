@@ -42,7 +42,7 @@ const DataScreen = (props) =>
             </div>
             <div className="content">
                 { props.apps.length === 0 ? <NoApps /> :
-                    props.apps.filter(app => app.StatusId !== 'deleted').map(app => <SingleApp app={app} key={app.Id} />)}
+                    props.apps.filter(app => app.StatusId !== 'deleted').map(app => <SingleApp app={app} key={app.Id} onResetSessions={props.onResetSessions}/>)}
                 <div>
                     <button className="btn btn-default" onClick={props.refresh}>
                         <i className="fa fa-refresh" aria-hidden="true"></i>
@@ -81,6 +81,7 @@ const SingleApp = (props) =>
             </div>
             <div className="col-md-3 text-center">
                 {props.app.URL && <a href={props.app.URLWithCredentials} target="_blank" className="btn btn-success btn-sm btn-fill"><strong>Начать работу в базе</strong></a>}
+                {props.app.URLResetSessions && props.app.URLResetSessions.includes("11487") && <button className="btn btn-warning" onClick={(event => {props.onResetSessions(props.app.URLResetSessions)})} >Сбросить сеансы</button>}
             </div>
             {/*TODO добавить проверку прав и сделать отображение кнопки завершения сеансов*/}
         </div>
@@ -153,6 +154,7 @@ class Homepage extends Component {
             applications: [],
             isFetching: true
         };
+        this.onResetSessions = this.onResetSessions.bind(this);
       }
     
     componentDidMount() {
@@ -163,10 +165,35 @@ class Homepage extends Component {
         return(
             <Container>
                 <Welcome getApplications={this.getApplications} apps={this.state.applications} />
-                {this.state.isFetching ? <LoadingScreen /> : <DataScreen apps={this.state.applications} refresh={this.getApplications} />}
+                {this.state.isFetching ? <LoadingScreen /> : <DataScreen apps={this.state.applications} refresh={this.getApplications} onResetSessions={this.onResetSessions}/>}
                 <Information />
             </Container>
         );
+    }
+
+    onResetSessions(resetUrl) {
+        //TODO Remove console log
+        console.log(this.props.basePrivateURL + `/${resetUrl}`);
+
+        axios.get(this.props.basePrivateURL + `/${resetUrl}`,
+            {
+                auth: {
+                    username: this.props.credentials.login,
+                    password: this.props.credentials.password
+                },
+                headers: {
+                    'Cache-Control': 'no-cache,no-store,must-revalidate,max-age=-1,private',
+                    'Pragma': 'no-cache',
+                    'Expires': '-1'
+                }
+            }
+        ).then((response) => {
+            console.log("Drop result" + JSON.stringify(response.status) + " " + JSON.stringify(response.data)) ;
+            if (response.status === 200) {
+                console.log("Dropped" + JSON.stringify(response.data));
+                this.getApplications();
+            }
+        });
     }
 
     getApplications = () => {
