@@ -26,7 +26,7 @@ const LoadingScreen = () =>
                 <h1>Ваши приложения</h1>
             </div>
             <div className="content">
-                <div className="text-center"><i className="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>
+                <div className="text-center"><i className="fa fa-refresh fa-spin fa-3x fa-fw"/></div>
             </div>
         </div>
     </div>
@@ -49,7 +49,7 @@ const DataScreen = (props) =>
                                                                                                droppedRealm={props.droppedRealm}/>)}
                 <div>
                     <button className="btn btn-default" onClick={props.refresh}>
-                        <i className="fa fa-refresh" aria-hidden="true"></i>
+                        <i className="fa fa-refresh" aria-hidden="true"/>
                         Обновить
                     </button>
                 </div>
@@ -106,7 +106,7 @@ const Information = () =>
     <div className="row">
         <div className="card">
             <div className="content">
-                <i className="fa fa-info-circle" aria-hidden="true"></i>
+                <i className="fa fa-info-circle" aria-hidden="true"/>
                 Можно использовать <strong>тонкий клиент</strong> вместо браузера. <a href="https://bitstroitelstvo.getcourse.ru/tonkiiklient">Перейти в базу знаний</a>
             </div>
         </div>
@@ -114,7 +114,7 @@ const Information = () =>
         <div className="row">
         <div className="card">
             <div className="content">
-                <i className="fa fa-info-circle" aria-hidden="true"></i>
+                <i className="fa fa-info-circle" aria-hidden="true"/>
                 Подключение, отключение и изменение параметров приложений производится в разделе <Link to="/tariffs">Настройки тарифов</Link>.
             </div>
         </div>
@@ -197,7 +197,7 @@ class Homepage extends Component {
     }
 
     modalOk = () => {
-        // console.log("Startiong ModelOk " + this.state.droppedRealm);
+        // console.log("Starting ModelOk " + this.state.droppedRealm);
         this.onResetSessions(this.state.droppedRealm)
             .then(() => {
                 // console.log("Finish ModelOk " + this.state.droppedRealm);
@@ -230,7 +230,7 @@ class Homepage extends Component {
             if (_realm === 0) {
                 console.log("Try reset sessions in realm 0");
                 resolve();
-            };
+            }
             axios.get(this.props.basePrivateURL + `/resetSessions/${Realm}`,
                 {
                     auth: {
@@ -247,7 +247,7 @@ class Homepage extends Component {
                 console.log("Drop result " + JSON.stringify(response.status) + " => " + JSON.stringify(response.data)) ;
                 if (response.status === 200) {
                     this.getApplications();
-                };
+                }
                 resolve();
             });
         });
