@@ -83,7 +83,7 @@ const SingleApp = (props) =>
                 {props.app.Status}
                 {props.app.URL && <span> ( <a href={props.app.URLWithCredentials} target="_blank">{props.app.URL}</a> )</span>}
             </div>
-            <div className="col-md-4 text-center">
+            <div className="col-md-4 text-left">
                 {props.app.URL && <a href={props.app.URLWithCredentials} target="_blank" className="btn btn-success btn-sm btn-fill"><strong>Начать работу в базе</strong></a>}
                 {/*TODO добавить проверку прав*/}
                 {/*{props.app.Realm &&*/}
