@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 
 import CreateTestBase from './CreateTestBase.js';
 import noApps from '../images/no-apps.png';
+import ModalLauncher from "../components/ModalLauncher";
+import Modal from "../components/ModalDialog";
+import "../components/ModalDialog.css"
 
 var axios = require('axios');
 
@@ -29,10 +32,6 @@ const LoadingScreen = () =>
     </div>
 </div>
 
-
-
-
-
 const DataScreen = (props) => 
 <div className="container-fluid">
     <div className="row">
@@ -42,7 +41,12 @@ const DataScreen = (props) =>
             </div>
             <div className="content">
                 { props.apps.length === 0 ? <NoApps /> :
-                    props.apps.filter(app => app.StatusId !== 'deleted').map(app => <SingleApp app={app} key={app.Id} onResetSessions={props.onResetSessions}/>)}
+                    props.apps.filter(app => app.StatusId !== 'deleted').map(app => <SingleApp app={app}
+                                                                                               key={app.Id}
+                                                                                               onResetSessions={props.onResetSessions}
+                                                                                               showModal={props.showModal}
+                                                                                               hideModal={props.hideModal}
+                                                                                               droppedRealm={props.droppedRealm}/>)}
                 <div>
                     <button className="btn btn-default" onClick={props.refresh}>
                         <i className="fa fa-refresh" aria-hidden="true"></i>
@@ -75,15 +79,23 @@ const SingleApp = (props) =>
             <div className="col-md-4">
                 {props.app.ConfigName + " версии " + props.app.ConfigVersionName}
             </div>
-            <div className="col-md-5">
+            <div className="col-md-4">
                 {props.app.Status}
                 {props.app.URL && <span> ( <a href={props.app.URLWithCredentials} target="_blank">{props.app.URL}</a> )</span>}
             </div>
-            <div className="col-md-3 text-center">
+            <div className="col-md-4 text-center">
                 {props.app.URL && <a href={props.app.URLWithCredentials} target="_blank" className="btn btn-success btn-sm btn-fill"><strong>Начать работу в базе</strong></a>}
-                {props.app.Realm && <button className="btn btn-warning btn-sm" onClick={(event => {props.onResetSessions(props.app.Realm)})} >Сбросить сеансы</button>}
+                {/*TODO добавить проверку прав*/}
+                {/*{props.app.Realm &&*/}
+                {/*    <button*/}
+                {/*        className="btn btn-warning btn-sm"*/}
+                {/*        onClick={(event => {props.onResetSessions(props.app.Realm)})} >*/}
+                {/*        Сбросить сеансы*/}
+                {/*    </button>*/}
+                {/*}*/}
+                {props.app.Realm && !(props.droppedRealm===props.app.Realm) && <ModalLauncher showModal={props.showModal} onSuccess={props.app.Realm} buttonCaption={"Сбросить сеансы"}/> }
             </div>
-            {/*TODO добавить проверку прав и сделать отображение кнопки завершения сеансов*/}
+
         </div>
     </div>
 </div>
@@ -153,7 +165,8 @@ class Homepage extends Component {
         this.state = {
             applications: [],
             isFetching: true,
-            isDropping: []
+            isModalShow: false,
+            droppedRealm: 0
         };
         this.onResetSessions = this.onResetSessions.bind(this);
       }
@@ -165,35 +178,78 @@ class Homepage extends Component {
     render() {
         return(
             <Container>
+                <Modal show={this.state.isModalShow}
+                       makeAction={this.modalOk}
+                       hideModal={this.hideModal}
+                       modalTitle={"Завершение сеансов в области."}>
+                    Вы уверены, что хотите принудительно завершить все сеансы? <br/> Завершение сеансов займет продолжительное время. После закрытия окна некоторые сеансы могут некоторое время завершаться.
+                </Modal>
                 <Welcome getApplications={this.getApplications} apps={this.state.applications} />
-                {this.state.isFetching ? <LoadingScreen /> : <DataScreen apps={this.state.applications} refresh={this.getApplications} onResetSessions={this.onResetSessions}/>}
+                {this.state.isFetching ? <LoadingScreen /> : <DataScreen apps={this.state.applications}
+                                                                         refresh={this.getApplications}
+                                                                         onResetSessions={this.onResetSessions}
+                                                                         showModal={this.showModal}
+                                                                         hideModal={this.hideModal}
+                                                                         droppedRealm={this.state.droppedRealm}/>}
                 <Information />
             </Container>
         );
     }
 
-    onResetSessions(Realm) {
-        //TODO Remove console log
-        console.log(this.props.basePrivateURL + `/resetSessions/${Realm}`);
+    modalOk = () => {
+        // console.log("Startiong ModelOk " + this.state.droppedRealm);
+        this.onResetSessions(this.state.droppedRealm)
+            .then(() => {
+                // console.log("Finish ModelOk " + this.state.droppedRealm);
+                this.setState({
+                    droppedRealm: 0
+                })
+            });
+        this.setState({
+            isModalShow: false
+        })
+    }
 
-        axios.get(this.props.basePrivateURL + `/resetSessions/${Realm}`,
-            {
-                auth: {
-                    username: this.props.credentials.login,
-                    password: this.props.credentials.password
-                },
-                headers: {
-                    'Cache-Control': 'no-cache,no-store,must-revalidate,max-age=-1,private',
-                    'Pragma': 'no-cache',
-                    'Expires': '-1'
+    showModal = (Realm) => {
+        this.setState({
+            isModalShow: true,
+            droppedRealm: Realm
+        });
+    }
+
+    hideModal = () => {
+        this.setState({
+            isModalShow: false,
+            droppedRealm: 0
+        })
+    }
+
+    onResetSessions(Realm) {
+        return new Promise((resolve) => {
+            let _realm = this.state.Realm;
+            if (_realm === 0) {
+                console.log("Try reset sessions in realm 0");
+                resolve();
+            };
+            axios.get(this.props.basePrivateURL + `/resetSessions/${Realm}`,
+                {
+                    auth: {
+                        username: this.props.credentials.login,
+                        password: this.props.credentials.password
+                    },
+                    headers: {
+                        'Cache-Control': 'no-cache,no-store,must-revalidate,max-age=-1,private',
+                        'Pragma': 'no-cache',
+                        'Expires': '-1'
+                    }
                 }
-            }
-        ).then((response) => {
-            console.log("Drop result" + JSON.stringify(response.status) + " " + JSON.stringify(response.data)) ;
-            if (response.status === 200) {
-                console.log("Dropped" + JSON.stringify(response.data));
-                this.getApplications();
-            }
+            ).then((response) => {
+                console.log("Drop result " + JSON.stringify(response.status) + " => " + JSON.stringify(response.data)) ;
+                if (response.status === 200) {
+                    this.getApplications();
+                };
+                resolve();
+            });
         });
     }
 

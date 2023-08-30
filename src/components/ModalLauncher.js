@@ -5,8 +5,8 @@ const ModalLauncher = ({ showModal, onSuccess, buttonCaption="OPenModal" }) => {
     return (
         <button
                     type="button"
-                    className="btn btn-outline-primary mt-3"
-                    onClick={showModal(onSuccess)}
+                    className="btn btn-warning btn-sm"
+                    onClick={(event => showModal(onSuccess))}
                 >
             {buttonCaption}
                 </button>
