@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 import CreateTestBase from './CreateTestBase.js';
 import noApps from '../images/no-apps.png';
-// import ModalLauncher from "../components/ModalLauncher";
 import Modal from "../components/ModalDialog";
 import "../components/ModalDialog.css"
 
@@ -84,14 +83,6 @@ const SingleApp = (props) =>
             <div className="col-md-4 text-left">
                 {props.app.URL && <a href={props.app.URLWithCredentials} target="_blank" className="btn btn-success btn-sm btn-fill"><strong>Начать работу в базе</strong></a>}
                 {/*TODO добавить проверку прав*/}
-                {/*{props.app.Realm &&*/}
-                {/*    <button*/}
-                {/*        className="btn btn-warning btn-sm"*/}
-                {/*        onClick={(event => {props.onResetSessions(props.app.Realm)})} >*/}
-                {/*        Сбросить сеансы*/}
-                {/*    </button>*/}
-                {/*}*/}
-                {/*{props.canReset && <ModalLauncher showModal={props.showModal} onSuccess={props.app.Realm} buttonCaption={"Сбросить сеансы"}/> }*/}
                 {props.canReset && <button className="btn btn-warning btn-sm"
                                            onClick={() => props.onResetSessions()} >Сбросить сеансы
                 </button>}
@@ -166,7 +157,6 @@ class Homepage extends Component {
         this.state = {
             applications: [],
             isFetching: true,
-            isModalShow: false,
             droppedRealm: null
         };
 
