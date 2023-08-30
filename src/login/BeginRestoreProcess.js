@@ -34,14 +34,14 @@ const BeginRestoreForm = (props) =>
 
 const ActivationInProgress = (props) => 
 <div className="text-center">
-    <i className="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+    <i className="fa fa-refresh fa-spin fa-3x fa-fw"/>
 </div>
 
 
 const ActivationSuccessful = (props) => 
 <p className="content text-center text-success">
     <strong>
-        <i className="fa fa-check" aria-hidden="true"></i> Письмо с кодом для смены пароля отправлено
+        <i className="fa fa-check" aria-hidden="true"/> Письмо с кодом для смены пароля отправлено
     </strong>
 </p>
 

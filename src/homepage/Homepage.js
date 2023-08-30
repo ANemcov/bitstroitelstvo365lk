@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 
 import CreateTestBase from './CreateTestBase.js';
 import noApps from '../images/no-apps.png';
+import Modal from "../components/ModalDialog";
+import "../components/ModalDialog.css"
 
 var axios = require('axios');
 
@@ -23,15 +25,11 @@ const LoadingScreen = () =>
                 <h1>Ваши приложения</h1>
             </div>
             <div className="content">
-                <div className="text-center"><i className="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>
+                <div className="text-center"><i className="fa fa-refresh fa-spin fa-3x fa-fw"/></div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
 
 const DataScreen = (props) => 
 <div className="container-fluid">
@@ -42,10 +40,13 @@ const DataScreen = (props) =>
             </div>
             <div className="content">
                 { props.apps.length === 0 ? <NoApps /> :
-                    props.apps.filter(app => app.StatusId !== 'deleted').map(app => <SingleApp app={app} key={app.Id} />)}
+                    props.apps.filter(app => app.StatusId !== 'deleted').map(app => <SingleApp app={app}
+                                                                                               key={app.Id}
+                                                                                               onResetSessions={() => props.onResetSessions(app.Realm)}
+                                                                                               canReset={props.canReset}/>)}
                 <div>
                     <button className="btn btn-default" onClick={props.refresh}>
-                        <i className="fa fa-refresh" aria-hidden="true"></i>
+                        <i className="fa fa-refresh" aria-hidden="true"/>
                         Обновить
                     </button>
                 </div>
@@ -75,13 +76,18 @@ const SingleApp = (props) =>
             <div className="col-md-4">
                 {props.app.ConfigName + " версии " + props.app.ConfigVersionName}
             </div>
-            <div className="col-md-5">
+            <div className="col-md-4">
                 {props.app.Status}
                 {props.app.URL && <span> ( <a href={props.app.URLWithCredentials} target="_blank">{props.app.URL}</a> )</span>}
             </div>
-            <div className="col-md-3 text-center">
+            <div className="col-md-4 text-left">
                 {props.app.URL && <a href={props.app.URLWithCredentials} target="_blank" className="btn btn-success btn-sm btn-fill"><strong>Начать работу в базе</strong></a>}
+                {/*TODO добавить проверку прав*/}
+                {props.canReset && <button className="btn btn-warning btn-sm"
+                                           onClick={() => props.onResetSessions()} >Сбросить сеансы
+                </button>}
             </div>
+
         </div>
     </div>
 </div>
@@ -92,7 +98,7 @@ const Information = () =>
     <div className="row">
         <div className="card">
             <div className="content">
-                <i className="fa fa-info-circle" aria-hidden="true"></i>
+                <i className="fa fa-info-circle" aria-hidden="true"/>
                 Можно использовать <strong>тонкий клиент</strong> вместо браузера. <a href="https://bitstroitelstvo.getcourse.ru/tonkiiklient">Перейти в базу знаний</a>
             </div>
         </div>
@@ -100,7 +106,7 @@ const Information = () =>
         <div className="row">
         <div className="card">
             <div className="content">
-                <i className="fa fa-info-circle" aria-hidden="true"></i>
+                <i className="fa fa-info-circle" aria-hidden="true"/>
                 Подключение, отключение и изменение параметров приложений производится в разделе <Link to="/tariffs">Настройки тарифов</Link>.
             </div>
         </div>
@@ -150,8 +156,10 @@ class Homepage extends Component {
     
         this.state = {
             applications: [],
-            isFetching: true
+            isFetching: true,
+            droppedRealm: null
         };
+
       }
     
     componentDidMount() {
@@ -161,11 +169,59 @@ class Homepage extends Component {
     render() {
         return(
             <Container>
+                <Modal show={this.state.droppedRealm}
+                       onConfirm={() => this.resetApp()}
+                       onCancel={this.hideModal}
+                       modalTitle={"Завершение сеансов в области."}>
+                    Вы уверены, что хотите принудительно завершить все сеансы? <br/> После нажатия кнопки «ОК» система приступит к закрытию сеансов, что может занять некоторое время (даже после закрытия данного окна).
+                </Modal>
                 <Welcome getApplications={this.getApplications} apps={this.state.applications} />
-                {this.state.isFetching ? <LoadingScreen /> : <DataScreen apps={this.state.applications} refresh={this.getApplications} />}
+                {this.state.isFetching ? <LoadingScreen /> : <DataScreen apps={this.state.applications}
+                                                                         refresh={this.getApplications}
+                                                                         onResetSessions={(Realm) => this.onResetSessions(Realm)}
+                                                                         canReset={!this.state.droppedRealm}/>}
                 <Information />
             </Container>
         );
+    }
+
+    hideModal = () => {
+        this.setState({
+            droppedRealm: null
+        })
+    }
+
+    onResetSessions(Realm) {
+        this.setState(
+            {droppedRealm: Realm}
+        )
+    }
+
+    resetApp() {
+        const Realm = this.state.droppedRealm;
+
+        this.setState({
+            droppedRealm: null
+        });
+
+        axios.get(this.props.basePrivateURL + `/resetSessions/${Realm}`,
+            {
+                auth: {
+                    username: this.props.credentials.login,
+                    password: this.props.credentials.password
+                },
+                headers: {
+                    'Cache-Control': 'no-cache,no-store,must-revalidate,max-age=-1,private',
+                    'Pragma': 'no-cache',
+                    'Expires': '-1'
+                }
+            }
+        ).then((response) => {
+            console.log("Drop result " + JSON.stringify(response.status) + " => " + JSON.stringify(response.data));
+            if (response.status === 200) {
+                this.getApplications();
+            }
+        });
     }
 
     getApplications = () => {
