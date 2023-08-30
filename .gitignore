@@ -24,3 +24,4 @@ yarn-error.log*
 /deploy
 /.idea
 /.idea/
+release.tar.gz
