@@ -182,7 +182,7 @@ class Homepage extends Component {
                        makeAction={this.modalOk}
                        hideModal={this.hideModal}
                        modalTitle={"Завершение сеансов в области."}>
-                    Вы уверены, что хотите принудительно завершить все сеансы? <br/> Завершение сеансов займет продолжительное время. После закрытия окна некоторые сеансы могут некоторое время завершаться.
+                    Вы уверены, что хотите принудительно завершить все сеансы? <br/> После нажатия кнопки «ОК» система приступит к закрытию сеансов, что может занять некоторое время (даже после закрытия данного окна).
                 </Modal>
                 <Welcome getApplications={this.getApplications} apps={this.state.applications} />
                 {this.state.isFetching ? <LoadingScreen /> : <DataScreen apps={this.state.applications}
