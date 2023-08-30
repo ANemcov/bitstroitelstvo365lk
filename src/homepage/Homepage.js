@@ -81,7 +81,7 @@ const SingleApp = (props) =>
             </div>
             <div className="col-md-3 text-center">
                 {props.app.URL && <a href={props.app.URLWithCredentials} target="_blank" className="btn btn-success btn-sm btn-fill"><strong>Начать работу в базе</strong></a>}
-                {props.app.URLResetSessions && props.app.URLResetSessions.includes("11487") && <button className="btn btn-warning" onClick={(event => {props.onResetSessions(props.app.URLResetSessions)})} >Сбросить сеансы</button>}
+                {props.app.Realm && <button className="btn btn-warning btn-sm" onClick={(event => {props.onResetSessions(props.app.Realm)})} >Сбросить сеансы</button>}
             </div>
             {/*TODO добавить проверку прав и сделать отображение кнопки завершения сеансов*/}
         </div>
@@ -152,7 +152,8 @@ class Homepage extends Component {
     
         this.state = {
             applications: [],
-            isFetching: true
+            isFetching: true,
+            isDropping: []
         };
         this.onResetSessions = this.onResetSessions.bind(this);
       }
@@ -171,11 +172,11 @@ class Homepage extends Component {
         );
     }
 
-    onResetSessions(resetUrl) {
+    onResetSessions(Realm) {
         //TODO Remove console log
-        console.log(this.props.basePrivateURL + `/${resetUrl}`);
+        console.log(this.props.basePrivateURL + `/resetSessions/${Realm}`);
 
-        axios.get(this.props.basePrivateURL + `/${resetUrl}`,
+        axios.get(this.props.basePrivateURL + `/resetSessions/${Realm}`,
             {
                 auth: {
                     username: this.props.credentials.login,
