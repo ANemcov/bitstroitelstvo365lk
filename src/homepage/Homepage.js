@@ -43,10 +43,10 @@ const DataScreen = (props) =>
                 { props.apps.length === 0 ? <NoApps /> :
                     props.apps.filter(app => app.StatusId !== 'deleted').map(app => <SingleApp app={app}
                                                                                                key={app.Id}
-                                                                                               onResetSessions={props.onResetSessions}
+                                                                                               onResetSessions={() => props.onResetSessions(app.Realm)}
+                                                                                               canReset={props.canReset}
                                                                                                showModal={props.showModal}
-                                                                                               hideModal={props.hideModal}
-                                                                                               droppedRealm={props.droppedRealm}/>)}
+                                                                                               hideModal={props.hideModal}/>)}
                 <div>
                     <button className="btn btn-default" onClick={props.refresh}>
                         <i className="fa fa-refresh" aria-hidden="true"/>
@@ -93,7 +93,7 @@ const SingleApp = (props) =>
                 {/*        Сбросить сеансы*/}
                 {/*    </button>*/}
                 {/*}*/}
-                {props.app.Realm && !(props.droppedRealm===props.app.Realm) && <ModalLauncher showModal={props.showModal} onSuccess={props.app.Realm} buttonCaption={"Сбросить сеансы"}/> }
+                {props.canReset && <ModalLauncher showModal={props.showModal} onSuccess={props.app.Realm} buttonCaption={"Сбросить сеансы"}/> }
             </div>
 
         </div>
@@ -166,7 +166,7 @@ class Homepage extends Component {
             applications: [],
             isFetching: true,
             isModalShow: false,
-            droppedRealm: 0
+            droppedRealm: null
         };
         this.onResetSessions = this.onResetSessions.bind(this);
       }
@@ -190,7 +190,7 @@ class Homepage extends Component {
                                                                          onResetSessions={this.onResetSessions}
                                                                          showModal={this.showModal}
                                                                          hideModal={this.hideModal}
-                                                                         droppedRealm={this.state.droppedRealm}/>}
+                                                                         canReset={!this.state.droppedRealm}/>}
                 <Information />
             </Container>
         );
@@ -202,7 +202,7 @@ class Homepage extends Component {
             .then(() => {
                 // console.log("Finish ModelOk " + this.state.droppedRealm);
                 this.setState({
-                    droppedRealm: 0
+                    droppedRealm: null
                 })
             });
         this.setState({
@@ -220,7 +220,7 @@ class Homepage extends Component {
     hideModal = () => {
         this.setState({
             isModalShow: false,
-            droppedRealm: 0
+            droppedRealm: null
         })
     }
 
