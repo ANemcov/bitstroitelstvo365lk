@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import CreateTestBase from './CreateTestBase.js';
 import noApps from '../images/no-apps.png';
-import ModalLauncher from "../components/ModalLauncher";
+// import ModalLauncher from "../components/ModalLauncher";
 import Modal from "../components/ModalDialog";
 import "../components/ModalDialog.css"
 
@@ -44,9 +44,7 @@ const DataScreen = (props) =>
                     props.apps.filter(app => app.StatusId !== 'deleted').map(app => <SingleApp app={app}
                                                                                                key={app.Id}
                                                                                                onResetSessions={() => props.onResetSessions(app.Realm)}
-                                                                                               canReset={props.canReset}
-                                                                                               showModal={props.showModal}
-                                                                                               hideModal={props.hideModal}/>)}
+                                                                                               canReset={props.canReset}/>)}
                 <div>
                     <button className="btn btn-default" onClick={props.refresh}>
                         <i className="fa fa-refresh" aria-hidden="true"/>
@@ -93,7 +91,10 @@ const SingleApp = (props) =>
                 {/*        Сбросить сеансы*/}
                 {/*    </button>*/}
                 {/*}*/}
-                {props.canReset && <ModalLauncher showModal={props.showModal} onSuccess={props.app.Realm} buttonCaption={"Сбросить сеансы"}/> }
+                {/*{props.canReset && <ModalLauncher showModal={props.showModal} onSuccess={props.app.Realm} buttonCaption={"Сбросить сеансы"}/> }*/}
+                {props.canReset && <button className="btn btn-warning btn-sm"
+                                           onClick={() => props.onResetSessions()} >Сбросить сеансы
+                </button>}
             </div>
 
         </div>
@@ -168,7 +169,7 @@ class Homepage extends Component {
             isModalShow: false,
             droppedRealm: null
         };
-        this.onResetSessions = this.onResetSessions.bind(this);
+
       }
     
     componentDidMount() {
@@ -178,78 +179,58 @@ class Homepage extends Component {
     render() {
         return(
             <Container>
-                <Modal show={this.state.isModalShow}
-                       makeAction={this.modalOk}
-                       hideModal={this.hideModal}
+                <Modal show={this.state.droppedRealm}
+                       onConfirm={() => this.resetApp()}
+                       onCancel={this.hideModal}
                        modalTitle={"Завершение сеансов в области."}>
                     Вы уверены, что хотите принудительно завершить все сеансы? <br/> После нажатия кнопки «ОК» система приступит к закрытию сеансов, что может занять некоторое время (даже после закрытия данного окна).
                 </Modal>
                 <Welcome getApplications={this.getApplications} apps={this.state.applications} />
                 {this.state.isFetching ? <LoadingScreen /> : <DataScreen apps={this.state.applications}
                                                                          refresh={this.getApplications}
-                                                                         onResetSessions={this.onResetSessions}
-                                                                         showModal={this.showModal}
-                                                                         hideModal={this.hideModal}
+                                                                         onResetSessions={(Realm) => this.onResetSessions(Realm)}
                                                                          canReset={!this.state.droppedRealm}/>}
                 <Information />
             </Container>
         );
     }
 
-    modalOk = () => {
-        // console.log("Starting ModelOk " + this.state.droppedRealm);
-        this.onResetSessions(this.state.droppedRealm)
-            .then(() => {
-                // console.log("Finish ModelOk " + this.state.droppedRealm);
-                this.setState({
-                    droppedRealm: null
-                })
-            });
-        this.setState({
-            isModalShow: false
-        })
-    }
-
-    showModal = (Realm) => {
-        this.setState({
-            isModalShow: true,
-            droppedRealm: Realm
-        });
-    }
-
     hideModal = () => {
         this.setState({
-            isModalShow: false,
             droppedRealm: null
         })
     }
 
     onResetSessions(Realm) {
-        return new Promise((resolve) => {
-            let _realm = this.state.Realm;
-            if (_realm === 0) {
-                console.log("Try reset sessions in realm 0");
-                resolve();
+        this.setState(
+            {droppedRealm: Realm}
+        )
+    }
+
+    resetApp() {
+        const Realm = this.state.droppedRealm;
+
+        this.setState({
+            droppedRealm: null
+        });
+
+        axios.get(this.props.basePrivateURL + `/resetSessions/${Realm}`,
+            {
+                auth: {
+                    username: this.props.credentials.login,
+                    password: this.props.credentials.password
+                },
+                headers: {
+                    'Cache-Control': 'no-cache,no-store,must-revalidate,max-age=-1,private',
+                    'Pragma': 'no-cache',
+                    'Expires': '-1'
+                }
             }
-            axios.get(this.props.basePrivateURL + `/resetSessions/${Realm}`,
-                {
-                    auth: {
-                        username: this.props.credentials.login,
-                        password: this.props.credentials.password
-                    },
-                    headers: {
-                        'Cache-Control': 'no-cache,no-store,must-revalidate,max-age=-1,private',
-                        'Pragma': 'no-cache',
-                        'Expires': '-1'
-                    }
-                }
-            ).then((response) => {
-                console.log("Drop result " + JSON.stringify(response.status) + " => " + JSON.stringify(response.data)) ;
-                if (response.status === 200) {
-                    this.getApplications();
-                }
-                resolve();
-            });
+        ).then((response) => {
+            console.log("Drop result " + JSON.stringify(response.status) + " => " + JSON.stringify(response.data));
+            if (response.status === 200) {
+                this.getApplications();
+            }
         });
     }
 

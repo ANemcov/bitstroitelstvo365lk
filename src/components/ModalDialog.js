@@ -1,7 +1,7 @@
 import React from 'react';
 
 // eslint-disable-next-line react/prop-types
-const Modal = ({ children, show, makeAction, hideModal , modalTitle="Вы уверены?"}) => (
+const Modal = ({ children, show, onConfirm, onCancel , modalTitle="Вы уверены?"}) => (
     <div
         className={`modal ${show ? ' modal-show' : ''}`}
         tabIndex="-1"
@@ -16,7 +16,7 @@ const Modal = ({ children, show, makeAction, hideModal , modalTitle="Вы уве
                         className="close"
                         data-dismiss="modal"
                         aria-label="Close"
-                        onClick={hideModal}
+                        onClick={onCancel}
                     >
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -25,14 +25,14 @@ const Modal = ({ children, show, makeAction, hideModal , modalTitle="Вы уве
                     {children}
                 </div>
                 <div className="modal-footer">
-                    <button type="button" className="btn btn-primary" onClick={makeAction}>
+                    <button type="button" className="btn btn-primary" onClick={onConfirm}>
                         OK
                     </button>
                     <button
                         type="button"
                         className="btn btn-secondary"
                         data-dismiss="modal"
-                        onClick={hideModal}
+                        onClick={onCancel}
                     >
                         Отмена
                     </button>
